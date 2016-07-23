@@ -1,0 +1,58 @@
+.article-footer
+{
+    font-size: 12px;
+    padding: 5px;
+    margin-left: 30px;
+}
+
+/*div li
+{
+    list-style-type:none;
+    float:left;
+}*/
+.page-head-right
+{
+    margin-right:50px;
+    float:right;
+}
+.question
+{
+    font-size:23px;
+    color: #555555;
+    text-decoration:none;
+    padding: 10px;
+}
+.clear-float{
+    clear:both;
+}
+
+.head-text{
+    font-weight:bold;
+    padding:7px;
+    margin-left:100px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    list-style-type:none;
+    float:left;
+}
+/*.head-fix{
+    position :fixed;
+}*/
+.content-body{
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+.article-title{
+    text-align: center;
+}
+
+.article-content{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+.article-title-span{
+    height:150px;
+    line-height:150px;
+    font-size: 32px;
+}

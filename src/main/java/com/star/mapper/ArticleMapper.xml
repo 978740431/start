@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.mapper.ArticleMapper">
+
+    <resultMap id="article" type="com.star.model.Article">
+    </resultMap>
+    <select id="queryQuestionList" resultMap="article">
+        SELECT
+        id,
+        title,
+        author,
+        create_time,
+        content,
+        price
+        FROM
+        article
+        ORDER BY
+        create_time
+    </select>
+
+
+    <insert id="insertArticle" parameterType="com.star.model.Article">
+        INSERT INTO article (
+            title,
+            author,
+            create_time,
+            content,
+            price
+        )
+        VALUES
+            (
+                #{title},
+                #{author},
+                now(),
+                #{content},
+                #{price}
+            );
+    </insert>
+
+    <select id="queryArticleById" parameterType="int" resultMap="article">
+        SELECT
+            id,
+            title,
+            author,
+            create_time,
+            content,
+            price
+        FROM
+            article
+        WHERE
+            id =#{questionId}
+    </select>
+</mapper>

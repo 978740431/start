@@ -1,0 +1,19 @@
+.title{
+    resize:none;
+    border-radius:6px;
+    outline:none;
+    overflow: hidden;
+    padding:10px;
+    font-family: inherit;
+    margin: 20px;
+}
+/*line-height: 30px;*/
+.titleDiv{
+    /*水平居中*/
+    text-align:center;
+}
+.wangEdit{
+    width:90%;
+    /*div居中*/
+    margin: 0 auto;
+}
