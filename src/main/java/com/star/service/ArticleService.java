@@ -10,7 +10,7 @@ import java.util.List;
  * Created by admin on 2016/6/18.
  */
 public interface ArticleService {
-    List<Question> queryArticleList();
+    List<Article> queryArticleList();
 
     void insertArticle(Article article);
 

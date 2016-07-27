@@ -14,6 +14,8 @@ public class Article {
     private Date createTime;
     private String content;
     private int price;
+    private int uid;
+    private boolean isDelete;
 
 
     public int getId() {
@@ -62,5 +64,21 @@ public class Article {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public boolean getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(boolean isDelete) {
+        this.isDelete = isDelete;
     }
 }

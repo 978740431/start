@@ -65,12 +65,10 @@
     function test(){
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/question/insertArticle",
+            url: "http://localhost:8080/article/insertArticle",
             dataType: "json",
             data:{ 'content':editor.$txt.html(),'title':$("#title").val(),'author':'张楠','price':0},
             success: function(msg){
-                console.log(11);
-                console.log(msg);
                 $("#one").html(msg);
             }
         });

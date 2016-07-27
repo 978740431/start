@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.mapper.UserArticleMapper">
+
+    <resultMap id="userArticle" type="com.star.model.Article">
+    </resultMap>
+    <select id="queryUserArticleList" parameterType="com.star.model.User" resultMap="userArticle">
+        SELECT
+            id,
+            title,
+            author,
+            create_time,
+            content,
+            price,
+            uid
+        FROM
+          article
+        WHERE
+          uid=#{id}
+          and is_delete=0
+        ORDER BY
+          create_time
+    </select>
+
+
+    <update id="deleteUserArticle" parameterType="com.star.model.Article">
+        UPDATE article
+        SET is_delete = 1
+        WHERE
+            id = #{id}
+        AND
+            uid=#{uid}
+    </update>
+
+    <insert id="insertUserArticle" parameterType="com.star.model.Article">
+        INSERT INTO article (
+        title,
+        author,
+        create_time,
+        content,
+        price,
+        uid,
+        id_delete
+        )
+        VALUES
+        (
+        #{title},
+        #{author},
+        now(),
+        #{content},
+        #{price},
+        #{uid},
+        0
+        );
+    </insert>
+</mapper>

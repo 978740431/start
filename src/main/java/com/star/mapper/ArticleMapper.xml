@@ -4,18 +4,20 @@
 
     <resultMap id="article" type="com.star.model.Article">
     </resultMap>
-    <select id="queryQuestionList" resultMap="article">
+    <select id="queryArticleList" resultMap="article">
         SELECT
-        id,
-        title,
-        author,
-        create_time,
-        content,
-        price
+            id,
+            title,
+            author,
+            create_time,
+            content,
+            price
         FROM
-        article
+          article
+        WHERE
+          is_delete=0
         ORDER BY
-        create_time
+          create_time
     </select>
 
 
@@ -25,7 +27,8 @@
             author,
             create_time,
             content,
-            price
+            price,
+            uid
         )
         VALUES
             (
@@ -33,7 +36,8 @@
                 #{author},
                 now(),
                 #{content},
-                #{price}
+                #{price},
+                #{uid}
             );
     </insert>
 

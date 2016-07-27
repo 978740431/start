@@ -9,7 +9,7 @@ import java.util.List;
  * Created by admin on 2016/6/18.
  */
 public interface ArticleDao {
-    List<Question> queryQuestionList();
+    List<Article> queryArticleList();
 
     void insertArticle(Article article);
 

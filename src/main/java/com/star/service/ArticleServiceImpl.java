@@ -18,8 +18,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleDao articleDao;
     @Override
-    public List<Question> queryArticleList() {
-        return articleDao.queryQuestionList();
+    public List<Article> queryArticleList() {
+        return articleDao.queryArticleList();
     }
 
     @Override

@@ -18,8 +18,8 @@ public class ArticleDaoImpl implements ArticleDao {
     @Autowired
     private ArticleMapper articleMapper;
     @Override
-    public List<Question> queryQuestionList() {
-        return articleMapper.queryQuestionList();
+    public List<Article> queryArticleList() {
+        return articleMapper.queryArticleList();
     }
 
     @Override

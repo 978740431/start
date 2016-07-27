@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.mapper.UserMapper">
+
+    <resultMap id="article" type="com.star.model.Article">
+    </resultMap>
+
+    <insert id="register" parameterType="com.star.model.User">
+        INSERT INTO user(
+            username ,
+            password ,
+            create_time,
+            last_login_time,
+            uuid
+        )
+        VALUES(
+            #{username} ,
+            #{password} ,
+            now(),
+            now(),
+            #{uuid}
+        );
+    </insert>
+
+
+    <select id="login" parameterType="com.star.model.User" resultType="com.star.model.User">
+        select
+        *
+        from user
+        where
+        username=#{username} and password =#{password}
+    </select>
+
+    <select id="queryUserIsExist" parameterType="com.star.model.User" resultType="com.star.model.User">
+        select
+          username
+        from user
+        where
+        username=#{username}
+    </select>
+
+    <update id="setUserInfo" parameterType="com.star.model.User">
+        UPDATE start.user
+        SET
+         last_login_time = now(),
+         uuid=#{uuid}
+        WHERE
+            id = #{id};
+    </update>
+
+    <select id="queryUserByUserAndUUID" parameterType="com.star.model.User" resultType="com.star.model.User">
+        select * from user where username=#{username} and uuid=#{uuid}
+    </select>
+</mapper>
