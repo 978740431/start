@@ -12,7 +12,7 @@
     <title>问题区</title>
 </head>
 <body>
-<%@ include file="/static/template/header.html"%>
+<%@ include file="/static/template/header.jsp"%>
 <div class="article-title"><span class="article-title-span">${article.title}</span></div>
 <div class="article-content">${article.content}</div>
 </body>
