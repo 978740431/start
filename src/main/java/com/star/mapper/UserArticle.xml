@@ -4,6 +4,7 @@
 
     <resultMap id="userArticle" type="com.star.model.Article">
     </resultMap>
+
     <select id="queryUserArticleList" parameterType="com.star.model.User" resultMap="userArticle">
         SELECT
             id,
@@ -53,4 +54,19 @@
         0
         );
     </insert>
+
+
+    <select id="queryUserArticleById" parameterType="int" resultMap="userArticle">
+        SELECT
+            id,
+            title,
+            author,
+            create_time,
+            content,
+            price
+        FROM
+            article
+        WHERE
+            id =#{articleId}
+    </select>
 </mapper>

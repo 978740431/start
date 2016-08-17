@@ -10,13 +10,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>登陆</title>
+  <link rel="stylesheet" href="../../static/css/login.css"/>
+
+  <title>登陆</title>
 </head>
 <body>
 <div>
-  <div>账号: <input type="text" id="username"></div>
-  <div>密码: <input type="text" id="password"></div>
-  <div><input type="button" value="登陆" onclick="login()"/></div>
+  <div class="login-div-username">账号: <input type="text" id="username"></div>
+  <div class="login-div-password">密码: <input type="text" id="password"></div>
+  <div class="login-div-login"><input type="button" value="登陆" onclick="login()"/></div>
 </div>
 
 </body>

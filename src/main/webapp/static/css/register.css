@@ -1,0 +1,28 @@
+.register-div-username{
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin:-100px 0 0 -150px;
+    z-index:99;
+}
+.register-div-password{
+    position:absolute;
+    top:58%;
+    left:50%;
+    margin:-100px 0 0 -150px;
+    z-index:99;
+}
+.register-div-confirmPassword{
+    position:absolute;
+    top:65%;
+    left:47.15%;
+    margin:-100px 0 0 -150px;
+    z-index:99;
+}
+.register-div-register{
+    position:absolute;
+    top:72%;
+    left:57%;
+    margin:-100px 0 0 -150px;
+    z-index:99;
+}

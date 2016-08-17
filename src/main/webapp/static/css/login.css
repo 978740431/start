@@ -1,0 +1,21 @@
+.login-div-username{
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin:-100px 0 0 -150px;
+    z-index:99;
+}
+.login-div-password{
+    position:absolute;
+    top:58%;
+    left:50%;
+    margin:-100px 0 0 -150px;
+    z-index:99;
+}
+.login-div-login{
+    position:absolute;
+    top:65%;
+    left:57%;
+    margin:-100px 0 0 -150px;
+    z-index:99;
+}

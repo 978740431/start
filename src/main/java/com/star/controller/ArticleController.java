@@ -1,7 +1,6 @@
 package com.star.controller;
 
 import com.star.model.Article;
-import com.star.model.Question;
 import com.star.model.User;
 import com.star.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;

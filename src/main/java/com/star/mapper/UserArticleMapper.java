@@ -14,4 +14,6 @@ public interface UserArticleMapper {
     void deleteUserArticle(Article article);
 
     void insertUserArticle(Article article);
+
+    Article queryUserArticleById(int articleId);
 }

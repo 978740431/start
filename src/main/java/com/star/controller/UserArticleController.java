@@ -7,6 +7,7 @@ import com.star.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -83,7 +84,21 @@ public class UserArticleController {
         return "success";
     }
 
+    /**
+     * 查询文章详情
+     * @param articleId
+     * @return
+     */
+    @RequestMapping(value = "/queryArticleDetail",method = RequestMethod.GET)
+    public ModelAndView queryArticleDetail(@RequestParam int articleId){
 
+        Article article= userArticleService.queryUserArticleById(articleId);
+        ModelAndView mv=new ModelAndView();
+        mv.setViewName("articleDetail");
+        mv.addObject("article",article);
+        return mv;
+
+    }
 
 
 

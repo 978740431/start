@@ -30,4 +30,9 @@ public class UserArticleDaoImpl implements UserArticleDao{
     public void insertUserArticle(Article article) {
         userArticleMapper.insertUserArticle(article);
     }
+
+    @Override
+    public Article queryUserArticleById(int articleId) {
+        return userArticleMapper.queryUserArticleById(articleId);
+    }
 }

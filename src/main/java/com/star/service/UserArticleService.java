@@ -12,4 +12,7 @@ public interface UserArticleService {
     List<Article> queryUserArticleList(User user);
 
     void updateUserArticle(Article article);
+
+    Article queryUserArticleById(int articleId);
+
 }

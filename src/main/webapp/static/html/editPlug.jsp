@@ -28,6 +28,10 @@
 </body>
 <script type="text/javascript">
     var editor = new wangEditor('div1');
+    editor.config.uploadImgUrl = '/image/update_image';
+    editor.config.hideLinkImg = true;
+    editor.config.uploadImgFileName ='studentPhoto';
+
     // 自定义菜单
     editor.config.menus = [
         'source',

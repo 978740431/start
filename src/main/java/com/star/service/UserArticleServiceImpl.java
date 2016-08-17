@@ -28,4 +28,9 @@ public class UserArticleServiceImpl implements UserArticleService{
         userArticleDao.deleteUserArticle(article);
         userArticleDao.insertUserArticle(article);
     }
+
+    @Override
+    public Article queryUserArticleById(int articleId) {
+        return userArticleDao.queryUserArticleById(articleId);
+    }
 }
