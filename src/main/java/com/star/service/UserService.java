@@ -13,4 +13,6 @@ public interface UserService {
     User queryUserIsExist(User user);
 
     User queryUserByUserAndUUID(User user);
+
+    void updateUserLastLoginTime(User user);
 }

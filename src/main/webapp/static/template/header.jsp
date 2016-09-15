@@ -8,20 +8,42 @@
         <!--<input type=button value=按扭 onclick="window.location.href='../html/editPlug.html'">-->
     </div>
     <div class="page-head">
-        <input type="button" value="提笔写文章" onclick="window.location='/static/html/editPlug.jsp'" style="float:right"/>
+       <%-- <input type="button" value="提笔写文章" onclick="goEditPage()" style="float:right"/>--%>
+        <a href=<c:url value="/goEditPage" />>写文章</a>
     </div>
-    <c:if test="${empty user}">
-        <div class="page-head-right">
-            <li class="head-text"><a href="/user/goLogin">登陆</a></li>
-            <li class="head-text"><a href="/user/goRegister">注册</a></li>
+    <div class="page-head-right" id="notLogin">
+
+    </div>
+
+        <div class="page-head-right" id="hasLogin">
+
         </div>
-    </c:if>
-    <c:if test="${user!=null}">
-        <div class="page-head-right">
-            <li class="head-text"><a href="/user_article/queryUserArticleList">我的</a></li>
-            <li class="head-text"><a href="/user/login_out">退出</a></li>
-        </div>
-    </c:if>
 
     <hr class="clear-float"/>
 </div>
+
+<script type="text/javascript" src="../../static/js/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function(){
+        $.ajax({
+            type: "GET",
+            url: "http://localhost/user/queryUserIsLogin",
+            dataType: "json",
+            success: function(msg){
+                console.log(msg);
+                if(msg==true){
+                    $("#hasLogin").html("<li class='head-text'><a href='/user_article/queryUserArticleList'>我的</a></li>"+
+                    "<li class='head-text'><a href='/user/login_out'>退出</a></li>");
+                }else{
+                    $("#notLogin").html(" <li class='head-text'><a href='/user/goLogin'>登陆</a></li>"+
+                    "<li class='head-text'><a href='/user/goRegister'>注册</a></li>");
+                }
+            }
+        });
+    });
+
+
+
+</script>

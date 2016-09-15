@@ -1,5 +1,9 @@
 package com.star.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.star.common.RedisService;
 import com.star.model.Article;
 import com.star.model.User;
 import com.star.service.ArticleService;
@@ -11,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,6 +33,8 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+    @Resource
+    private RedisService redisService;
 
     /**
      * 文章列表
@@ -49,15 +58,45 @@ public class ArticleController {
     @ResponseBody
     @RequestMapping(value = "/insertArticle",method = RequestMethod.POST)
     public String insertArticle(Article article,HttpServletRequest request){
-
-        HttpSession session = request.getSession();
-        User user=(User)session.getAttribute("user");
+        User user=null;
+        ObjectMapper mapper = new ObjectMapper();
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if ("user".equals(cookie.getName())){
+                String loginUser = redisService.get(cookie.getValue());
+                if (null==loginUser){
+                    try {
+                        return mapper.writeValueAsString("error");
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    try {
+                        user = mapper.readValue(loginUser, new TypeReference<User>() {});
+                        break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
         if (null==user){
-            return "error";
+            try {
+                return mapper.writeValueAsString("error");
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
         }
         article.setUid(user.getId());
+        article.setAuthor(user.getUsername());
         articleService.insertArticle(article);
-        return "success";
+        try {
+            return mapper.writeValueAsString("success");
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

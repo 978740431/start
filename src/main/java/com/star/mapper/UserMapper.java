@@ -15,4 +15,6 @@ public interface UserMapper {
     void setUserInfo(User user);
 
     User queryUserByUserAndUUID(User user);
+
+    void updateUserLastLoginTime(User user);
 }

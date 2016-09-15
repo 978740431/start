@@ -25,7 +25,12 @@
 
     <select id="login" parameterType="com.star.model.User" resultType="com.star.model.User">
         select
-        *
+        id,
+        username,
+        password,
+        create_time createTime,
+        last_login_time lastLoginTime,
+        uuid
         from user
         where
         username=#{username} and password =#{password}
@@ -51,4 +56,8 @@
     <select id="queryUserByUserAndUUID" parameterType="com.star.model.User" resultType="com.star.model.User">
         select * from user where username=#{username} and uuid=#{uuid}
     </select>
+
+    <update id="updateUserLastLoginTime" parameterType="com.star.model.User">
+        update user set last_login_time=now() where id=#{id}
+    </update>
 </mapper>

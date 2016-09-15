@@ -40,4 +40,9 @@ public class UserDaoImpl implements UserDao{
     public User queryUserByUserAndUUID(User user) {
         return userMapper.queryUserByUserAndUUID(user);
     }
+
+    @Override
+    public void updateUserLastLoginTime(User user) {
+        userMapper.updateUserLastLoginTime(user);
+    }
 }

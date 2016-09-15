@@ -34,6 +34,7 @@ public class ImageController {
                 if (type!=null) {// 判断文件类型是否为空
                     if ("GIF".equals(type.toUpperCase())||"PNG".equals(type.toUpperCase())||"JPG".equals(type.toUpperCase())) {
                         // 项目在容器中实际发布运行的根路径
+                        //String realPath="/opt/start_image/";
                         String realPath="/Users/zhangnan/start_image/";
                         // 自定义的文件名称
                         String trueFileName=String.valueOf(System.currentTimeMillis())+fileName;
@@ -43,7 +44,8 @@ public class ImageController {
                         // 转存文件到指定的路径
                         file.transferTo(new File(path));
                         System.out.println("文件成功上传到指定目录下");
-                        return path;
+
+                        return "/start_image/"+trueFileName;
                     }else {
                         System.out.println("不是我们想要的文件类型,请按要求重新上传");
                         return null;

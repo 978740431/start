@@ -16,9 +16,12 @@
 </head>
 <body>
 <div>
-  <div class="login-div-username">账号: <input type="text" id="username"></div>
-  <div class="login-div-password">密码: <input type="text" id="password"></div>
-  <div class="login-div-login"><input type="button" value="登陆" onclick="login()"/></div>
+  <form onclick="login()">
+    <div class="login-div-username">账号: <input type="text" name="username" id="username"></div>
+    <div class="login-div-password">密码: <input type="text" name="password" id="password"></div>
+    <div class="login-div-login"><input type="submit" value="登陆"/></div>
+  </form>
+
 </div>
 
 </body>
@@ -28,6 +31,7 @@
 <script type="text/javascript">
 
   function login(){
+    alert(1);
     if($("#username").val()==null || $("#username").val()==""){
       alert("账号不能为空");
       return false;
@@ -39,12 +43,13 @@
     //登陆
     $.ajax({
       type: "POST",
-      url: "http://localhost:8080/user/login",
+      url: "http://localhost/user/login",
       dataType: "json",
       data:{ 'username':$("#username").val(),'password':$("#password").val()},
       success: function(msg){
+        console.log(msg);
         if(msg){
-          window.location='http://localhost:8080/article/queryArticleList';
+          window.location='http://localhost/article/queryArticleList';
         }else{
           alert("账号或密码错误");
         }

@@ -15,4 +15,7 @@ public interface UserDao {
     void setUserInfo(User user);
 
     User queryUserByUserAndUUID(User user);
+
+    void updateUserLastLoginTime(User user);
+
 }

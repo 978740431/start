@@ -1,8 +1,9 @@
 package com.star.controller;
 
-import com.star.model.Question;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.star.common.RedisService;
 import com.star.model.User;
-import com.star.service.ArticleService;
 import com.star.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Created by zhangnan on 16/7/23.
@@ -26,6 +26,9 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private RedisService redisService;
 
 
     /**
@@ -68,19 +71,32 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public Object login(User user,HttpServletRequest request){
+    public String login(User user,HttpServletResponse response){
 
+//        ModelAndView modelAndView=new ModelAndView();
         User loginUser=userService.login(user);
         if (null==loginUser){
             //没有用户
-            return false;
+            //modelAndView.addObject("error","用户不存在");
+            return "error";
         }else {
             //存在用户
-            //保存用户信息到session中
-            HttpSession session = request.getSession();
-            session.setAttribute("user",loginUser);
-            session.setMaxInactiveInterval(1296000);
-            return true;
+            //保存用户信息到cookie中
+            Cookie cookie=new Cookie("user",loginUser.getUuid());
+            cookie.setMaxAge(1296000);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+            ObjectMapper json = new ObjectMapper();
+            String userJson = null;
+            try {
+                userJson = json.writeValueAsString(user);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            redisService.set(loginUser.getUuid(),userJson,1296000);
+            //userService.updateUserLastLoginTime(user);
+//            modelAndView.setViewName("redirect:/article/queryArticleList");
+            return "true";
         }
     }
 
@@ -90,8 +106,18 @@ public class UserController {
      */
     @RequestMapping(value = "/login_out",method = RequestMethod.GET)
     public ModelAndView loginOut(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.removeAttribute("user");
+//        HttpSession session = request.getSession();
+//        session.removeAttribute("user");
+        Cookie[] cookies = request.getCookies();
+       /* if (null==cookies){
+            return "false";
+        }*/
+        for (Cookie cookie : cookies) {
+            if ("user".equals(cookie.getName())){
+                redisService.del(cookie.getValue());
+
+            }
+        }
         return new ModelAndView("redirect:/article/queryArticleList");
     }
 
@@ -113,8 +139,24 @@ public class UserController {
     }
 
 
-    /**
-     * 查询用户的文章
-     */
+    @ResponseBody
+    @RequestMapping(value = "/queryUserIsLogin",method = RequestMethod.GET)
+    public String queryUserIsLogin(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        if (null==cookies){
+            return "false";
+        }
+        for (Cookie cookie : cookies) {
+            if ("user".equals(cookie.getName())){
+                String loginUser = redisService.get(cookie.getValue());
+                if (null!=loginUser){
+                    return "true";
+                }else {
+                    return "false";
+                }
+            }
+        }
+        return "false";
+    }
 
 }

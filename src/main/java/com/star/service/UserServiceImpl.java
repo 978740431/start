@@ -47,5 +47,10 @@ public class UserServiceImpl implements UserService{
         return userDao.queryUserByUserAndUUID(user);
     }
 
+    @Override
+    public void updateUserLastLoginTime(User user) {
+        userDao.updateUserLastLoginTime(user);
+    }
+
 
 }

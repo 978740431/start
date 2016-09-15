@@ -11,7 +11,7 @@ public class User {
     private String username;
     private String password;
     private Date createTime;
-    private Date lostLoginTime;
+    private Date lastLoginTime;
     private String uuid;
 
     public int getId() {
@@ -46,13 +46,6 @@ public class User {
         this.createTime = createTime;
     }
 
-    public Date getLostLoginTime() {
-        return lostLoginTime;
-    }
-
-    public void setLostLoginTime(Date lostLoginTime) {
-        this.lostLoginTime = lostLoginTime;
-    }
 
     public String getUuid() {
         return uuid;
@@ -60,5 +53,26 @@ public class User {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", createTime=" + createTime +
+                ", lastLoginTime=" + lastLoginTime +
+                ", uuid='" + uuid + '\'' +
+                '}';
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }
