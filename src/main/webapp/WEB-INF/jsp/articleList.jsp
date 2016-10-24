@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="/static/css/question.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/articleDetails.css"/>
     <title>文章区</title>
 </head>
 <body>
@@ -19,10 +19,6 @@
 </c:forEach>
 
 </body>
-<script type="text/javascript" src="/static/js/iscroll.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/iscroll.js"></script>
 
-<script type="text/javascript">
-
-
-</script>
 </html>

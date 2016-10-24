@@ -69,7 +69,7 @@
     function test(){
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/article/insertArticle",
+            url: "<%=request.getContextPath()%>/article/insertArticle",
             dataType: "json",
             data:{ 'content':editor.$txt.html(),'title':$("#title").val(),'author':'张楠','price':0},
             success: function(msg){

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -271,7 +270,6 @@ public class RedisService {
         });
     }
 
-    @Test
     public void testRedisHest() {
         Jedis jedis = new Jedis("127.0.0.1", 6379);
         jedis.set("test","zhangnan");
@@ -308,7 +306,6 @@ public class RedisService {
     }
     
     
-    @Test
     public void testRedisSst() {
         Jedis jedis = new Jedis("127.0.0.1", 6379);
         //给商品添加属性,set结构
@@ -319,7 +316,6 @@ public class RedisService {
         System.out.println(smembers);
         jedis.close();
     }
-    @Test
     public void testRedisList() {
         Jedis jedis = new Jedis("127.0.0.1", 6379);
         //给一个key插入一个属性

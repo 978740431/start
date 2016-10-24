@@ -41,7 +41,7 @@
         content,
         price,
         uid,
-        id_delete
+        is_delete
         )
         VALUES
         (
@@ -63,7 +63,8 @@
             author,
             create_time,
             content,
-            price
+            price,
+            uid
         FROM
             article
         WHERE

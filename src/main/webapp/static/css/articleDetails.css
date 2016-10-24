@@ -50,6 +50,7 @@
 .article-content{
     padding-left: 100px;
     padding-right: 100px;
+    word-wrap:break-word;
 }
 .article-title-span{
     height:150px;

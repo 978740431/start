@@ -15,14 +15,14 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/wangEditor.min.js"></script>
 </head>
-<body>
-<div>
     <div class="titleDiv">
-        <textarea onkeyup="MaxMe(this)" name="title" id="title" cols="70" rows="1" title="文章标题" placeholder="文章标题" class="title"></textarea>
+        <textarea onkeyup="MaxMe(this)" name="title" id="title" cols="70" rows="1" title="文章标题" placeholder="文章标题" class="title">${article.title}</textarea>
     </div>
     <div class="wangEdit">
-        <div id="div1" style="height:500px"></div>
+        <div id="div1" style="height:500px">${article.content}</div>
     </div>
+    <input type="hidden" id="articleId" value="${article.id}">
+    <input type="hidden" id="uid" value="${article.uid}">
     <input type="button" value="发布" onclick="test()" style="float:right"/>
 </div>
 </body>
@@ -67,16 +67,11 @@
     editor.create();
 
     function test(){
-        if($("#title").val()==null || $("#title").val()==""){
-            alert("标题不能为空");
-            return false;
-        }
-
         $.ajax({
             type: "POST",
-            url: "<%=request.getContextPath()%>/article/insertArticle",
+            url: "<%=request.getContextPath()%>/user_article/updateUserArticle",
             dataType: "json",
-            data:{ 'content':editor.$txt.html(),'title':$("#title").val(),'price':0},
+            data:{ 'content':editor.$txt.html(),'title':$("#title").val(),'id':$("#articleId").val(),'uid':$("#uid").val(),'price':0},
             success: function(msg){
                 if("success"==msg){
                     window.location='<%=request.getContextPath()%>/article/queryArticleList';

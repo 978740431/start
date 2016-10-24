@@ -72,32 +72,28 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String login(User user,HttpServletResponse response){
-
-//        ModelAndView modelAndView=new ModelAndView();
+        ObjectMapper json = new ObjectMapper();
         User loginUser=userService.login(user);
-        if (null==loginUser){
-            //没有用户
-            //modelAndView.addObject("error","用户不存在");
-            return "error";
-        }else {
-            //存在用户
-            //保存用户信息到cookie中
-            Cookie cookie=new Cookie("user",loginUser.getUuid());
-            cookie.setMaxAge(1296000);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            ObjectMapper json = new ObjectMapper();
-            String userJson = null;
-            try {
-                userJson = json.writeValueAsString(user);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
+        try {
+            if (null==loginUser){
+                return json.writeValueAsString("false");
+            }else {
+                //存在用户
+                //保存用户信息到cookie中
+                Cookie cookie=new Cookie("user",loginUser.getUuid());
+                cookie.setMaxAge(1296000);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+                String userJson;
+                userJson = json.writeValueAsString(loginUser);
+                redisService.set(loginUser.getUuid(),userJson,1296000);
+                return json.writeValueAsString("true");
             }
-            redisService.set(loginUser.getUuid(),userJson,1296000);
-            //userService.updateUserLastLoginTime(user);
-//            modelAndView.setViewName("redirect:/article/queryArticleList");
-            return "true";
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
+
     }
 
 
@@ -106,12 +102,7 @@ public class UserController {
      */
     @RequestMapping(value = "/login_out",method = RequestMethod.GET)
     public ModelAndView loginOut(HttpServletRequest request){
-//        HttpSession session = request.getSession();
-//        session.removeAttribute("user");
         Cookie[] cookies = request.getCookies();
-       /* if (null==cookies){
-            return "false";
-        }*/
         for (Cookie cookie : cookies) {
             if ("user".equals(cookie.getName())){
                 redisService.del(cookie.getValue());

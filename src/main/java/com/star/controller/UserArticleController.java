@@ -86,21 +86,46 @@ public class UserArticleController {
     @RequestMapping(value = "/updateUserArticle",method = RequestMethod.POST)
     public String updateUserArticle(Article article,HttpServletRequest request){
 
-        HttpSession session = request.getSession();
-        ModelAndView mv=new ModelAndView();
-        mv.setViewName("articleList");
-        User user=(User)session.getAttribute("user");
+        User user=null;
+        ObjectMapper mapper = new ObjectMapper();
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if ("user".equals(cookie.getName())){
+                String loginUser = redisService.get(cookie.getValue());
+                if (null==loginUser){
+                    try {
+                        return mapper.writeValueAsString("error");
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    try {
+                        user = mapper.readValue(loginUser, new TypeReference<User>() {});
+                        break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
         if (null==user){
-            mv.addObject("error","用户不存在");
+            try {
+                return mapper.writeValueAsString("error");
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
         }
-        User queryUser=userService.queryUserByUserAndUUID(user);
-        if (null==queryUser){
-            mv.addObject("error","用户非法");
-        }
-        article.setUid(queryUser.getId());
+        article.setUid(user.getId());
+        article.setAuthor(user.getUsername());
         //修改文章
         userArticleService.updateUserArticle(article);
-        return "success";
+        try {
+            return mapper.writeValueAsString("success");
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -114,6 +139,7 @@ public class UserArticleController {
         Article article= userArticleService.queryUserArticleById(articleId);
         ModelAndView mv=new ModelAndView();
         mv.setViewName("articleDetail");
+        mv.addObject("userArticle",true);
         mv.addObject("article",article);
         return mv;
 

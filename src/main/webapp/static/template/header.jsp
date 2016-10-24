@@ -3,42 +3,34 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="head-fix">
     <div class="page-head">
-        <%--<li class="head-text">问题</li>--%>
-        <li class="head-text"><a href="/article/queryArticleList">文章</a></li>
-        <!--<input type=button value=按扭 onclick="window.location.href='../html/editPlug.html'">-->
-    </div>
-    <div class="page-head">
-       <%-- <input type="button" value="提笔写文章" onclick="goEditPage()" style="float:right"/>--%>
-        <a href=<c:url value="/goEditPage" />>写文章</a>
+        <li class="head-text"><a href="<%=request.getContextPath()%>/article/queryArticleList">文章</a></li>
     </div>
     <div class="page-head-right" id="notLogin">
-
     </div>
-
-        <div class="page-head-right" id="hasLogin">
-
-        </div>
+    <div class="page-head-right" id="hasLogin">
+    </div>
 
     <hr class="clear-float"/>
 </div>
 
-<script type="text/javascript" src="../../static/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.10.2.min.js"></script>
 
 <script type="text/javascript">
 
     $(function(){
         $.ajax({
             type: "GET",
-            url: "http://localhost/user/queryUserIsLogin",
+            url: "<%=request.getContextPath()%>/user/queryUserIsLogin",
             dataType: "json",
             success: function(msg){
                 console.log(msg);
                 if(msg==true){
-                    $("#hasLogin").html("<li class='head-text'><a href='/user_article/queryUserArticleList'>我的</a></li>"+
-                    "<li class='head-text'><a href='/user/login_out'>退出</a></li>");
+                    $("#hasLogin").html(" <li class='head-text'><a href=<c:url value="/goEditPage" />>写文章</a></li>" +
+                            "<li class='head-text'><a href='<%=request.getContextPath()%>/user_article/queryUserArticleList'>我的</a></li>"+
+                    "<li class='head-text'><a href='<%=request.getContextPath()%>/user/login_out'>退出</a></li>");
                 }else{
-                    $("#notLogin").html(" <li class='head-text'><a href='/user/goLogin'>登陆</a></li>"+
-                    "<li class='head-text'><a href='/user/goRegister'>注册</a></li>");
+                    $("#notLogin").html(" <li class='head-text'><a href='<%=request.getContextPath()%>/user/goLogin'>登陆</a></li>"+
+                    "<li class='head-text'><a href='<%=request.getContextPath()%>/user/goRegister'>注册</a></li>");
                 }
             }
         });

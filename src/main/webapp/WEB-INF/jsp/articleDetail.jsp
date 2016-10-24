@@ -6,14 +6,19 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="/static/css/question.css"/>
-    <link rel="stylesheet" href="/static/css/wangEditor.min.css"/>
-    <link rel="stylesheet" href="/static/css/wangEditorCss.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/articleDetails.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/wangEditor.min.css"/>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/wangEditorCss.css"/>
     <title>问题区</title>
 </head>
 <body>
 <%@ include file="/static/template/header.jsp"%>
-<div class="article-title"><span class="article-title-span">${article.title}</span></div>
+<div class="article-title">
+    <span class="article-title-span">${article.title}</span>
+    <c:if test="${userArticle==true}">
+        <a href=<c:url value="/goEditUserArticlePlug?id=${article.id}" />>修改</a>
+    </c:if>
+</div>
 <div class="article-content">${article.content}</div>
 </body>
 <script type="text/javascript">
