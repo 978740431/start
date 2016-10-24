@@ -1,9 +1,0 @@
-.idea/
-*.iml
-
-### target/ 带来问题就是文件夹中不能有以target命名的 ###
-/*/target/
-*rebel.xml
-/.DS_Store
-/*/src/test/
-/niuhome_log/
