@@ -13,7 +13,8 @@
             create_time,
             content,
             price,
-            uid
+            uid,
+            article_generalize
         FROM
           article
         WHERE
@@ -41,7 +42,8 @@
         content,
         price,
         uid,
-        is_delete
+        is_delete,
+        article_generalize
         )
         VALUES
         (
@@ -51,7 +53,8 @@
         #{content},
         #{price},
         #{uid},
-        0
+        0,
+        #{articleGeneralize}
         );
     </insert>
 
@@ -64,7 +67,8 @@
             create_time,
             content,
             price,
-            uid
+            uid,
+            article_generalize
         FROM
             article
         WHERE
