@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/wangEditorCss.css"/>
     <title>问题区</title>
 </head>
-<body>
+<body style="margin: 0">
 <%@ include file="/static/template/header.jsp"%>
 <div class="article-title">
     <span class="article-title-span">${article.title}</span>
@@ -19,6 +19,7 @@
         <a href=<c:url value="/goEditUserArticlePlug?id=${article.id}" />>修改</a>
     </c:if>
 </div>
+<%--<div>${article.articleGeneralize}</div>--%>
 <div class="article-content">${article.content}</div>
 </body>
 <script type="text/javascript">

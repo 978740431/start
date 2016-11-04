@@ -1,8 +1,8 @@
 .article-footer
 {
     font-size: 12px;
-    padding: 5px;
-    margin-left: 30px;
+    padding-top: 20px;
+    color: #999;
 }
 
 /*div li
@@ -14,13 +14,13 @@
 {
     margin-right:50px;
     float:right;
+    color: #555555;
 }
 .question
 {
-    font-size:23px;
+    font-size:27px;
     color: #555555;
     text-decoration:none;
-    padding: 10px;
 }
 .clear-float{
     clear:both;
@@ -29,7 +29,6 @@
 .head-text{
     font-weight:bold;
     padding:7px;
-    margin-left:100px;
     margin-bottom: 8px;
     margin-top: 8px;
     list-style-type:none;
@@ -41,6 +40,7 @@
 .content-body{
     margin-left: 30px;
     margin-top: 20px;
+    margin-bottom: 120px;
 }
 
 .article-title{
@@ -51,9 +51,15 @@
     padding-left: 100px;
     padding-right: 100px;
     word-wrap:break-word;
+    margin-left: 18%;
+    margin-right: 18%;
+    font-size: 16px;
+    line-height:35px;
+    color: #555555;
 }
 .article-title-span{
     height:150px;
     line-height:150px;
-    font-size: 32px;
+    font-size: 26px;
+    color: #555;
 }

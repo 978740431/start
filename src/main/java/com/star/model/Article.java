@@ -16,6 +16,7 @@ public class Article {
     private int price;
     private int uid;
     private boolean isDelete;
+    private String articleGeneralize;
 
 
     public int getId() {
@@ -80,5 +81,13 @@ public class Article {
 
     public void setIsDelete(boolean isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public String getArticleGeneralize() {
+        return articleGeneralize;
+    }
+
+    public void setArticleGeneralize(String articleGeneralize) {
+        this.articleGeneralize = articleGeneralize;
     }
 }

@@ -11,13 +11,14 @@
             author,
             create_time,
             content,
-            price
+            price,
+            article_generalize
         FROM
           article
         WHERE
           is_delete=0
         ORDER BY
-          create_time
+          create_time desc
     </select>
 
 
@@ -28,7 +29,8 @@
             create_time,
             content,
             price,
-            uid
+            uid,
+            article_generalize
         )
         VALUES
             (
@@ -37,7 +39,8 @@
                 now(),
                 #{content},
                 #{price},
-                #{uid}
+                #{uid},
+                #{articleGeneralize}
             );
     </insert>
 
@@ -48,7 +51,8 @@
             author,
             create_time,
             content,
-            price
+            price,
+            article_generalize
         FROM
             article
         WHERE
