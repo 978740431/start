@@ -20,6 +20,10 @@
     <div class="titleDiv">
         <textarea onkeyup="MaxMe(this)" name="title" id="title" cols="70" rows="1" title="文章标题" placeholder="文章标题" class="title"></textarea>
     </div>
+    <div>
+        <span>概括</span>
+        <div contenteditable="true" style="border: 1px solid #DFDFDF;font-size: 10px;background: #FFFFFF;padding:2px;min-height:25px" id="articleGeneralize"></div>
+    </div>
     <div class="wangEdit">
         <div id="div1" style="height:500px"></div>
     </div>
@@ -76,7 +80,7 @@
             type: "POST",
             url: "<%=request.getContextPath()%>/article/insertArticle",
             dataType: "json",
-            data:{ 'content':editor.$txt.html(),'title':$("#title").val(),'price':0},
+            data:{ 'content':editor.$txt.html(),'title':$("#title").val(),'price':0,'articleGeneralize':$("#articleGeneralize").html()},
             success: function(msg){
                 if("success"==msg){
                     window.location='<%=request.getContextPath()%>/article/queryArticleList';
