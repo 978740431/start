@@ -77,6 +77,7 @@ public class UserArticleController {
     /**
      * 用户修改文章
      */
+
     /**
      * 插入文章详情
      * @param article
@@ -114,11 +115,11 @@ public class UserArticleController {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-
         }
         article.setUid(user.getId());
         article.setAuthor(user.getUsername());
         //修改文章
+        article.setArticleLength(article.getContent().length());
         userArticleService.updateUserArticle(article);
         try {
             return mapper.writeValueAsString("success");

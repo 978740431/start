@@ -13,6 +13,7 @@ public class User {
     private Date createTime;
     private Date lastLoginTime;
     private String uuid;
+    private String nickName;
 
     public int getId() {
         return id;
@@ -74,5 +75,13 @@ public class User {
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }

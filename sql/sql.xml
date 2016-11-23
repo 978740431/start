@@ -1,0 +1,16 @@
+ALTER TABLE start.user ADD COLUMN nick_name varchar(255) DEFAULT '' COMMENT '昵称' AFTER uuid;
+
+
+        ALTER TABLE start.article ADD COLUMN article_generalize varchar(255) DEFAULT '' COMMENT '文章概括' AFTER is_delete;
+
+ALTER TABLE start.article ADD COLUMN article_length int DEFAULT 0 COMMENT '文章字数' AFTER article_generalize, ADD COLUMN read_times int DEFAULT 0 COMMENT '阅读次数' AFTER article_length;
+
+CREATE TABLE start.article_comment (
+id int(11) NOT NULL AUTO_INCREMENT,
+article_id int(11) NOT NULL,
+comment_content varchar(255) NOT NULL,
+create_time datetime NOT NULL,
+uid int(11) NOT NULL,
+is_del int(1) NOT NULL DEFAULT '0' COMMENT '是否删除,0未删除,1已删除',
+PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

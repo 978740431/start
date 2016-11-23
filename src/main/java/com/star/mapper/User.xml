@@ -11,14 +11,16 @@
             password ,
             create_time,
             last_login_time,
-            uuid
+            uuid,
+            nick_name
         )
         VALUES(
             #{username} ,
             #{password} ,
             now(),
             now(),
-            #{uuid}
+            #{uuid},
+            #{nickName}
         );
     </insert>
 
@@ -30,7 +32,8 @@
         password,
         create_time createTime,
         last_login_time lastLoginTime,
-        uuid
+        uuid,
+        nick_name
         from user
         where
         username=#{username} and password =#{password}

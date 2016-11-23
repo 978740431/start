@@ -26,6 +26,8 @@ public class UserArticleServiceImpl implements UserArticleService{
     @Override
     public void updateUserArticle(Article article) {
         userArticleDao.deleteUserArticle(article);
+        Article article1 = userArticleDao.queryUserArticleById(article.getId());
+        article.setReadTimes(article1.getReadTimes());
         userArticleDao.insertUserArticle(article);
     }
 
