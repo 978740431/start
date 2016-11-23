@@ -14,16 +14,28 @@
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/wangEditor.min.js"></script>
+    <style>
+        .test[placeholder]:empty:before {
+            content: attr(placeholder);
+            color: #555;
+        }
+    </style>
 </head>
-    <div class="titleDiv">
-        <textarea onkeyup="MaxMe(this)" name="title" id="title" cols="70" rows="1" title="文章标题" placeholder="文章标题" class="title">${article.title}</textarea>
-    </div>
-    <div class="wangEdit">
-        <div id="div1" style="height:500px">${article.content}</div>
-    </div>
-    <input type="hidden" id="articleId" value="${article.id}">
-    <input type="hidden" id="uid" value="${article.uid}">
-    <input type="button" value="发布" onclick="test()" style="float:right"/>
+<div>
+    <div class="test" contenteditable="true" name="title"  id="title" style="border: 1px solid #DFDFDF;font-size: 20px;
+        background: #FFFFFF;padding:2px;min-height:25px;width:50%;margin-left: 25%;margin-top: 50px" placeholder="文章标题" >${article.title}</div>
+    <input type="button" value="发布" onclick="test()" />
+</div>
+<input type="hidden" id="articleId" value="${article.id}">
+<input type="hidden" id="uid" value="${article.uid}">
+<div>
+    <div class="test" contenteditable="true" style="border: 1px solid #DFDFDF;font-size: 15px;width:50%;
+        margin-left:25%;background: #FFFFFF;padding:2px;min-height:100px;margin-top: 50px" id="articleGeneralize" placeholder="文章介绍">${article.articleGeneralize}</div>
+</div>
+<div class="wangEdit" style="margin-top: 50px">
+
+    <div id="div1" style="height:1000px">${article.content}</div>
+</div>
 </div>
 </body>
 <script type="text/javascript">
@@ -71,7 +83,7 @@
             type: "POST",
             url: "<%=request.getContextPath()%>/user_article/updateUserArticle",
             dataType: "json",
-            data:{ 'content':editor.$txt.html(),'title':$("#title").val(),'id':$("#articleId").val(),'uid':$("#uid").val(),'price':0},
+            data:{ 'content':editor.$txt.html(),'title':$("#title").html(),'id':$("#articleId").val(),'uid':$("#uid").val(),'price':0},
             success: function(msg){
                 if("success"==msg){
                     window.location='<%=request.getContextPath()%>/article/queryArticleList';
