@@ -14,4 +14,6 @@ public interface ArticleMapper {
     void insertArticle(Article article);
 
     Article queryArticleById(int articleId);
+
+    void updateReadTimesById(int articleId);
 }

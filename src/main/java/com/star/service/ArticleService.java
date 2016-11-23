@@ -15,4 +15,6 @@ public interface ArticleService {
     void insertArticle(Article article);
 
     Article queryArticleById(int questionId);
+
+    void updateReadTimesById(int articleId);
 }

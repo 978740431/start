@@ -6,15 +6,18 @@
     </resultMap>
     <select id="queryArticleList" resultMap="article">
         SELECT
-            id,
-            title,
-            author,
-            create_time,
-            content,
-            price,
-            article_generalize
+            t.id,
+            t.title,
+            u.nick_name author,
+            t.create_time,
+            t.content,
+            t.price,
+            t.article_generalize,
+            t.article_length,
+            t.read_times
         FROM
-          article
+          article t
+        LEFT JOIN user u on u.id=t.uid
         WHERE
           is_delete=0
         ORDER BY
@@ -30,7 +33,8 @@
             content,
             price,
             uid,
-            article_generalize
+            article_generalize,
+            article_length
         )
         VALUES
             (
@@ -40,22 +44,30 @@
                 #{content},
                 #{price},
                 #{uid},
-                #{articleGeneralize}
+                #{articleGeneralize},
+                #{articleLength}
             );
     </insert>
 
     <select id="queryArticleById" parameterType="int" resultMap="article">
         SELECT
-            id,
-            title,
-            author,
-            create_time,
-            content,
-            price,
-            article_generalize
+            a.id,
+            a.title,
+            u.nick_name author,
+            a.create_time,
+            a.content,
+            a.price,
+            a.article_generalize,
+            a.article_length,
+            a.read_times
         FROM
-            article
+            article a
+        LEFT JOIN user u on u.id=a.uid
         WHERE
-            id =#{questionId}
+            a.id =#{questionId}
     </select>
+
+    <update id="updateReadTimesById" parameterType="int">
+        update article SET read_times=read_times+1 where id=#{articleId}
+    </update>
 </mapper>

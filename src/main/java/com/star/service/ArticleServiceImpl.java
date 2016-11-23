@@ -31,4 +31,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Article queryArticleById(int articleId) {
         return articleDao.queryArticleById(articleId);
     }
+
+    @Override
+    public void updateReadTimesById(int articleId) {
+        articleDao.updateReadTimesById(articleId);
+    }
 }
