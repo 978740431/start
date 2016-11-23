@@ -31,4 +31,9 @@ public class ArticleDaoImpl implements ArticleDao {
     public Article queryArticleById(int articleId) {
         return articleMapper.queryArticleById(articleId);
     }
+
+    @Override
+    public void updateReadTimesById(int articleId) {
+        articleMapper.updateReadTimesById(articleId);
+    }
 }

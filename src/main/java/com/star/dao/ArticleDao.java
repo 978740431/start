@@ -14,4 +14,6 @@ public interface ArticleDao {
     void insertArticle(Article article);
 
     Article queryArticleById(int articleId);
+
+    void updateReadTimesById(int articleId);
 }

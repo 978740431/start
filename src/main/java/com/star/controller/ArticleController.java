@@ -5,7 +5,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.star.common.RedisService;
 import com.star.model.Article;
+import com.star.model.ArticleComment;
 import com.star.model.User;
+import com.star.service.ArticleCommentService;
 import com.star.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +41,18 @@ public class ArticleController {
      * 文章列表
      * @return
      */
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public ModelAndView index(){
+        List<Article> articleList= articleService.queryArticleList();
+        ModelAndView mv=new ModelAndView();
+        mv.setViewName("articleList");
+        mv.addObject("articleList",articleList);
+        return mv;
+    }
+    /**
+     * 文章列表
+     * @return
+     */
     @RequestMapping(value = "/queryArticleList",method = RequestMethod.GET)
     public ModelAndView queryArticleList(){
 
@@ -48,6 +62,7 @@ public class ArticleController {
         mv.addObject("articleList",articleList);
         return mv;
     }
+
 
     /**
      * 插入文章详情
@@ -89,6 +104,7 @@ public class ArticleController {
         }
         article.setUid(user.getId());
         article.setAuthor(user.getUsername());
+        article.setArticleLength(article.getContent().length());
         articleService.insertArticle(article);
         try {
             return mapper.writeValueAsString("success");
@@ -98,6 +114,9 @@ public class ArticleController {
         return null;
     }
 
+
+    @Resource
+    private ArticleCommentService articleCommentService;
     /**
      * 查询文章详情
      * @param articleId
@@ -107,9 +126,14 @@ public class ArticleController {
     public ModelAndView queryArticleDetail(@RequestParam int articleId){
 
         Article article= articleService.queryArticleById(articleId);
+
+        List<ArticleComment> articleComments = articleCommentService.queryArticleCommentListByArticleId(articleId);
+
+        articleService.updateReadTimesById(articleId);
         ModelAndView mv=new ModelAndView();
         mv.setViewName("articleDetail");
         mv.addObject("article",article);
+        mv.addObject("articleComments",articleComments);
         return mv;
 
     }

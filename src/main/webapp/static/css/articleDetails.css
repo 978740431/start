@@ -48,18 +48,16 @@
 }
 
 .article-content{
-    padding-left: 100px;
-    padding-right: 100px;
     word-wrap:break-word;
-    margin-left: 18%;
-    margin-right: 18%;
+    margin-left: 21%;
+    margin-right: 20%;
     font-size: 16px;
     line-height:35px;
     color: #555555;
 }
 .article-title-span{
     height:150px;
-    line-height:150px;
+    line-height:50px;
     font-size: 26px;
     color: #555;
 }
