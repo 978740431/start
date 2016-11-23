@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.mapper.ArticleCommentMapper">
+
+    <resultMap id="articleComment" type="com.star.model.ArticleComment">
+    </resultMap>
+
+
+    <select id="queryArticleCommentListByArticleId" parameterType="int" resultMap="articleComment">
+        select * from article_comment where article_id=#{articleId} and is_del=0
+    </select>
+
+    <insert id="addArticleComment" parameterType="com.star.model.ArticleComment">
+        INSERT INTO article_comment(
+            article_id ,
+            comment_content ,
+            create_time ,
+            uid ,
+            is_del
+        )
+        VALUES
+            (
+               #{articleId},
+               #{commentContent},
+               now(),
+               #{uid},
+               0,
+            );
+    </insert>
+</mapper>

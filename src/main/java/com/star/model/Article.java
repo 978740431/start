@@ -17,6 +17,8 @@ public class Article {
     private int uid;
     private boolean isDelete;
     private String articleGeneralize;
+    private int articleLength;
+    private int readTimes;
 
 
     public int getId() {
@@ -89,5 +91,21 @@ public class Article {
 
     public void setArticleGeneralize(String articleGeneralize) {
         this.articleGeneralize = articleGeneralize;
+    }
+
+    public int getArticleLength() {
+        return articleLength;
+    }
+
+    public void setArticleLength(int articleLength) {
+        this.articleLength = articleLength;
+    }
+
+    public int getReadTimes() {
+        return readTimes;
+    }
+
+    public void setReadTimes(int readTimes) {
+        this.readTimes = readTimes;
     }
 }
