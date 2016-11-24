@@ -8,12 +8,12 @@
 
     <title>文章</title>
     <!--引入wangEditor.css-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/static/css/wangEditor.min.css">
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/static/css/article.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/wangEditor.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/article.css">
 
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
-    <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/wangEditor.min.js"></script>
+    <script type="text/javascript" src="../../static/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="../../static/js/wangEditor.min.js"></script>
     <style>
         .test[placeholder]:empty:before {
             content: attr(placeholder);
@@ -81,12 +81,12 @@
     function test(){
         $.ajax({
             type: "POST",
-            url: "<%=request.getContextPath()%>/user_article/updateUserArticle",
+            url: "/user_article/updateUserArticle",
             dataType: "json",
-            data:{ 'content':editor.$txt.html(),'title':$("#title").html(),'id':$("#articleId").val(),'uid':$("#uid").val(),'price':0},
+            data:{ 'content':editor.$txt.html(),'title':$("#title").html(),'id':$("#articleId").val(),'uid':$("#uid").val(),'price':0,'articleGeneralize':$("#articleGeneralize").html()},
             success: function(msg){
                 if("success"==msg){
-                    window.location='<%=request.getContextPath()%>/article/queryArticleList';
+                    window.location='article/queryArticleList';
                 }else{
                     alert("保存错误");
                 }

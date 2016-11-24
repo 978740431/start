@@ -15,7 +15,7 @@
     <c:forEach items="${articleList}" var="var" varStatus="vs">
         <div class="content-body">
             <div style="margin-bottom: 10px">
-                <a href="/article/queryArticleDetail?articleId=${var.id}" target="_Blank" id="title" class="question">${var.title}</a>
+                <a href="/user_article/queryArticleDetail?articleId=${var.id}" target="_Blank" id="title" class="question">${var.title}</a>
             </div>
             <div class="article-footer">作者 ${var.author} | 发布于 ${var.createTime} | 阅读次数 ${var.readTimes} | 文章字数 ${var.articleLength}</div>
             <div style="margin-top: 40px;line-height: 35px">${var.articleGeneralize}</div>

@@ -3,18 +3,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/static/css/login.css"/>
+  <link rel="stylesheet" href="../../static/css/login.css"/>
   <title>登陆</title>
 </head>
 <body>
 <div>
     <div class="login-div-username">账号: <input type="text" name="username" id="username"></div>
-    <div class="login-div-password">密码: <input type="text" name="password" id="password"></div>
+    <div class="login-div-password">密码: <input type="password" name="password" id="password"></div>
     <div class="login-div-login"><input type="submit" value="登陆" onclick="login()"/></div>
 </div>
 
 </body>
-<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../../static/js/jquery-1.10.2.min.js"></script>
 
 
 <script type="text/javascript">
@@ -31,12 +31,12 @@
     //登陆
     $.ajax({
       type: "POST",
-      url: "<%=request.getContextPath()%>/user/login",
+      url: "/user/login",
       dataType: "json",
       data:{ 'username':$("#username").val(),'password':$("#password").val()},
       success: function(msg){
         if(msg=="true"){
-          window.location.href='<%=request.getContextPath()%>/article/queryArticleList';
+          window.location.href='/article/queryArticleList';
         }else{
           alert("账号或密码错误");
         }

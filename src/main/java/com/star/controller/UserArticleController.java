@@ -47,7 +47,7 @@ public class UserArticleController {
     public ModelAndView queryUserArticleList(HttpServletRequest request){
 
         ModelAndView mv=new ModelAndView();
-        mv.setViewName("articleList");
+        mv.setViewName("userArticleList");
         ObjectMapper mapper = new ObjectMapper();
         Cookie[] cookies = request.getCookies();
         User user=null;
