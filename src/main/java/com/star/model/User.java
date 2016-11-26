@@ -14,6 +14,7 @@ public class User {
     private Date lastLoginTime;
     private String uuid;
     private String nickName;
+    private String authCode;
 
     public int getId() {
         return id;
@@ -83,5 +84,13 @@ public class User {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getAuthCode() {
+        return authCode;
+    }
+
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
     }
 }

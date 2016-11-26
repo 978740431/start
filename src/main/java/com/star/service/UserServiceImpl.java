@@ -1,7 +1,10 @@
 package com.star.service;
 
 import com.star.dao.UserDao;
+import com.star.model.CommonResult;
+import com.star.model.SendSMS;
 import com.star.model.User;
+import com.star.sendcode.SendCodeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,15 +19,32 @@ public class UserServiceImpl implements UserService{
     @Resource
     private UserDao userDao;
 
+    @Resource
+    private SendCodeService sendCodeService;
+
+
     @Override
-    public boolean register(User user) {
+    public CommonResult register(User user) {
+        CommonResult commonResult=new CommonResult();
+
+        SendSMS sendSMS = sendCodeService.querySendSMSForRegister(user.getUsername());
+        if (sendSMS==null || !sendSMS.getSendCode().contains(user.getAuthCode())){
+            commonResult.setResultValue("验证码不正确");
+            commonResult.setResultKey("105");
+            return commonResult;
+        }
+
         User userExist = queryUserIsExist(user);
         if (null!=userExist){
-            return false;
+            commonResult.setResultValue("用户已存在");
+            commonResult.setResultKey("105");
+            return commonResult;
         }
         user.setUuid(UUID.randomUUID().toString().replace("-", ""));
         userDao.register(user);
-        return true;
+        sendCodeService.updateSMSToUsed(user.getAuthCode());
+        commonResult.setResultKey("0");
+        return commonResult;
     }
 
     @Override

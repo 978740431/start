@@ -1,9 +1,11 @@
 package com.star.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.star.common.RedisService;
+import com.star.model.CommonResult;
+import com.star.model.SendSMS;
 import com.star.model.User;
+import com.star.sendcode.SendCodeService;
 import com.star.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +62,8 @@ public class UserController {
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public Object register(User user){
 
-        boolean result = userService.register(user);
+
+        CommonResult result = userService.register(user);
         return result;
     }
 
