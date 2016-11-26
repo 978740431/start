@@ -27,13 +27,14 @@
     <div>
         <div class="test" contenteditable="true" name="title"  id="title" style="border: 1px solid #DFDFDF;font-size: 20px;
         background: #FFFFFF;padding:2px;min-height:25px;width:50%;margin-left: 25%;margin-top: 50px" placeholder="文章标题" ></div>
-        <input type="button" value="发布" onclick="test()" />
+
     </div>
     <div>
         <div class="test" contenteditable="true" style="border: 1px solid #DFDFDF;font-size: 15px;width:50%;
         margin-left:25%;background: #FFFFFF;padding:2px;min-height:100px;margin-top: 50px" id="articleGeneralize" placeholder="文章介绍"></div>
     </div>
-    <div class="wangEdit" style="margin-top: 50px">
+    <input type="button" style="margin-left: 92.7%;margin-top: 50px" value="发布" onclick="test()" />
+    <div class="wangEdit" style="margin-top: 20px">
 
         <div id="div1" style="height:1000px"></div>
     </div>
@@ -80,7 +81,14 @@
     editor.create();
 
     function test(){
-        if($("#title").html()==null || $("#title").html()==""){
+
+        var title=$("#title").html();
+        if(title==null || title==""){
+            alert("标题不能为空");
+            return false;
+        }
+        var str = title.replace("&nbsp;","");
+        if(str==""){
             alert("标题不能为空");
             return false;
         }
@@ -89,7 +97,7 @@
             type: "POST",
             url: "article/insertArticle",
             dataType: "json",
-            data:{ 'content':editor.$txt.html(),'title':$("#title").html(),'price':0,'articleGeneralize':$("#articleGeneralize").html()},
+            data:{ 'content':editor.$txt.html(),'title':title,'price':0,'articleGeneralize':$("#articleGeneralize").html()},
             success: function(msg){
                 if("success"==msg){
                     window.location='article/queryArticleList';

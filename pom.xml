@@ -128,6 +128,12 @@
             <artifactId>pager-taglib</artifactId>
             <version>2.0</version>
         </dependency>
+        <!--阿里大于-->
+        <dependency>
+            <groupId>com.alidayu</groupId>
+            <artifactId>taobao-sdk</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
     </dependencies>
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.mapper.SendSMSMapper">
+
+    <resultMap id="sendSMS" type="com.star.model.SendSMS">
+    </resultMap>
+
+
+    <select id="querySendSMSUnUsed" parameterType="String" resultMap="sendSMS">
+        select * from send_sms where mobile =#{mobile} and is_used=0 and 60>TIMESTAMPDIFF(SECOND,create_time,now()) order by id desc limit 1
+    </select>
+
+    <select id="querySendSMSForRegister" parameterType="String" resultMap="sendSMS">
+        select * from send_sms where mobile =#{mobile} and is_used=0 order by id desc limit 1
+    </select>
+
+    <update id="updateSMSToUsed" parameterType="String">
+        update send_sms set is_used=1 where send_code like concat('%',#{sendCode},'%')
+    </update>
+
+    <insert id="insertSendSMS" parameterType="com.star.model.SendSMS">
+        INSERT INTO send_sms(
+            send_code ,
+            create_time ,
+            mobile ,
+            sms_temp ,
+            is_used
+        )
+        VALUES
+            (
+               #{sendCode},
+               now(),
+               #{mobile},
+               #{smsTemp},
+               #{isUsed}
+            )
+    </insert>
+</mapper>
