@@ -14,3 +14,13 @@ uid int(11) NOT NULL,
 is_del int(1) NOT NULL DEFAULT '0' COMMENT '是否删除,0未删除,1已删除',
 PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE start.`send_sms` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`send_code` varchar(255) NOT NULL COMMENT '发送的内容',
+`create_time` datetime NOT NULL,
+`mobile` varchar(255) NOT NULL COMMENT '手机号，用户id可能不存在',
+`sms_temp` varchar(255) NOT NULL COMMENT '对应阿里大于模板',
+`is_used` int(1) DEFAULT '0' COMMENT '是否使用过，0未使用，1已使用',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
