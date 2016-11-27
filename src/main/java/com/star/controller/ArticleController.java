@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.star.common.RedisService;
 import com.star.model.Article;
 import com.star.model.ArticleComment;
+import com.star.model.CommonResult;
 import com.star.model.User;
 import com.star.service.ArticleCommentService;
 import com.star.service.ArticleService;
@@ -137,6 +138,70 @@ public class ArticleController {
         return mv;
 
     }
+
+
+    /**
+     * 保存评论
+     * @param articleComment : 评论
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/addArticleComment",method = RequestMethod.POST)
+    public String addArticleComment(ArticleComment articleComment,HttpServletRequest request){
+
+        CommonResult commonResult =new CommonResult();
+
+        User user=null;
+        ObjectMapper mapper = new ObjectMapper();
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if ("user".equals(cookie.getName())){
+                String loginUser = redisService.get(cookie.getValue());
+                if (null==loginUser){
+                    try {
+                        commonResult.setResultKey("105");
+                        commonResult.setResultValue("用户未登陆");
+                        return mapper.writeValueAsString(commonResult);
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    try {
+                        user = mapper.readValue(loginUser, new TypeReference<User>() {});
+                        break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+            }
+        }
+        if (null==user){
+            try {
+                commonResult.setResultKey("105");
+                commonResult.setResultValue("未找到用户");
+                return mapper.writeValueAsString(commonResult);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        articleComment.setUid(user.getId());
+        articleCommentService.addArticleComment(articleComment);
+
+        commonResult.setResultKey("0");
+        try {
+            return mapper.writeValueAsString(commonResult);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+
+
 
 
 

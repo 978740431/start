@@ -7,7 +7,14 @@
 
 
     <select id="queryArticleCommentListByArticleId" parameterType="int" resultMap="articleComment">
-        select * from article_comment where article_id=#{articleId} and is_del=0
+        select
+          ac.*,
+          u.nick_name nickname
+        from
+          article_comment ac
+        LEFT JOIN user u on u.id=ac.uid
+        where
+        ac.article_id=#{articleId} and ac.is_del=0
     </select>
 
     <insert id="addArticleComment" parameterType="com.star.model.ArticleComment">
@@ -24,7 +31,7 @@
                #{commentContent},
                now(),
                #{uid},
-               0,
+               0
             );
     </insert>
 </mapper>

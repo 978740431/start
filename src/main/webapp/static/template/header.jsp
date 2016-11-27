@@ -23,7 +23,6 @@
             url: "/user/queryUserIsLogin",
             dataType: "json",
             success: function(msg){
-                console.log(msg);
                 if(msg==true){
                     $("#hasLogin").html(" <li class='head-text'><a style='color: #555555' href='/goEditPage'>写文章</a></li>" +
                             "<li class='head-text'><a href='/user_article/queryUserArticleList' style='color: #555555'>我的</a></li>"+

@@ -7,18 +7,19 @@
 
     <select id="queryUserArticleList" parameterType="com.star.model.User" resultMap="userArticle">
         SELECT
-            id,
-            title,
-            author,
-            create_time,
-            content,
-            price,
-            uid,
-            article_generalize,
-            article_length,
-            read_times
+            t.id,
+            t.title,
+            u.nick_name author,
+            t.create_time,
+            t.content,
+            t.price,
+            t.uid,
+            t.article_generalize,
+            t.article_length,
+            t.read_times
         FROM
-          article
+          article t
+        LEFT JOIN user u on u.id=t.uid
         WHERE
           uid=#{id}
           and is_delete=0

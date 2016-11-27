@@ -35,7 +35,7 @@ public class ImageController {
                     if ("GIF".equals(type.toUpperCase())||"PNG".equals(type.toUpperCase())||"JPG".equals(type.toUpperCase())) {
                         // 项目在容器中实际发布运行的根路径
                         //String realPath="/opt/start_image/";
-                        String realPath="/Users/zhangnan/start_image/";
+                        String realPath="/opt/article_image/start_image/";
                         // 自定义的文件名称
                         String trueFileName=String.valueOf(System.currentTimeMillis())+fileName;
                         // 设置存放图片文件的路径

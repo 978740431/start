@@ -14,6 +14,8 @@ public class ArticleComment {
     private Date createTime;
     private int idDel;
 
+    private String nickname;
+
     public int getId() {
         return id;
     }
@@ -60,5 +62,13 @@ public class ArticleComment {
 
     public void setIdDel(int idDel) {
         this.idDel = idDel;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
