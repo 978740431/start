@@ -6,10 +6,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="${article.title}" />
+    <meta name="description" content="${article.articleGeneralize}" />
     <link rel="stylesheet" href="../../static/css/articleDetails.css"/>
     <link rel="stylesheet" href="../../static/css/wangEditor.min.css"/>
     <link rel="stylesheet" href="../../static/css/wangEditorCss.css"/>
-    <title>${article.title}</title>
+    <title>${article.title} - zuliup - 六篇</title>
     <style>
         [contenteditable=true]:empty:before {
             content: attr(placeholder);

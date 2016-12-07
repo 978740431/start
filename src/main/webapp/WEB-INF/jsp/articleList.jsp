@@ -6,6 +6,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="zuliup - 六篇 - 我们相信,每一份知识都有其对应的价值" />
+    <meta name="keywords" content="zuliup - 六篇 - 我们相信,每一份知识都有其对应的价值" />
     <link rel="stylesheet" href="../../static/css/articleDetails.css"/>
     <title>文章区</title>
 </head>
