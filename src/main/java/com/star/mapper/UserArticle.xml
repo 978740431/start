@@ -84,4 +84,12 @@
         WHERE
             t.id =#{articleId}
     </select>
+
+    <update id="updateUserArticle" parameterType="com.star.model.Article">
+        UPDATE article set
+        content=#{content},
+        title=#{title},
+        article_generalize=#{articleGeneralize}
+         where id=#{id}
+    </update>
 </mapper>

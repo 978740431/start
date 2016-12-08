@@ -16,4 +16,6 @@ public interface UserArticleMapper {
     void insertUserArticle(Article article);
 
     Article queryUserArticleById(int articleId);
+
+    void updateUserArticle(Article article);
 }

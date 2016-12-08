@@ -35,4 +35,9 @@ public class UserArticleDaoImpl implements UserArticleDao{
     public Article queryUserArticleById(int articleId) {
         return userArticleMapper.queryUserArticleById(articleId);
     }
+
+    @Override
+    public void updateUserArticle(Article article) {
+        userArticleMapper.updateUserArticle(article);
+    }
 }

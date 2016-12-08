@@ -16,4 +16,6 @@ public interface UserArticleDao {
     void insertUserArticle(Article article);
 
     Article queryUserArticleById(int articleId);
+
+    void updateUserArticle(Article article);
 }

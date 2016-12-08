@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.star.common.RedisService;
+import com.star.exception.ResourceNotFoundException;
 import com.star.model.Article;
 import com.star.model.ArticleComment;
 import com.star.model.CommonResult;
@@ -37,6 +38,8 @@ public class ArticleController {
     private ArticleService articleService;
     @Resource
     private RedisService redisService;
+    @Resource
+    private ArticleCommentService articleCommentService;
 
     /**
      * 文章列表
@@ -116,8 +119,6 @@ public class ArticleController {
     }
 
 
-    @Resource
-    private ArticleCommentService articleCommentService;
     /**
      * 查询文章详情
      * @param articleId
@@ -127,7 +128,9 @@ public class ArticleController {
     public ModelAndView queryArticleDetail(@RequestParam int articleId){
 
         Article article= articleService.queryArticleById(articleId);
-
+        if (null==article){
+            throw new ResourceNotFoundException();
+        }
         List<ArticleComment> articleComments = articleCommentService.queryArticleCommentListByArticleId(articleId);
 
         articleService.updateReadTimesById(articleId);
