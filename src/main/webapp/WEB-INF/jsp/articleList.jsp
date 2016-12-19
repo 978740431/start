@@ -9,8 +9,9 @@
     <meta name="description" content="zuliup - 六篇 - 我们相信,每一份知识都有其对应的价值" />
     <meta name="keywords" content="zuliup - 六篇 - 我们相信,每一份知识都有其对应的价值" />
     <link rel="stylesheet" href="../../static/css/articleDetails.css"/>
-    <title>文章区</title>
+    <title>六篇</title>
 </head>
+<script src="https://s95.cnzz.com/z_stat.php?id=1260990957&web_id=1260990957" language="JavaScript"></script>
 <body style="margin: 0px">
 <%@ include file="/static/template/header.jsp"%>
 <div style="margin-left: 20%;margin-right: 20%;margin-top: 100px;line-height: 1.2">

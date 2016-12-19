@@ -19,6 +19,7 @@
         }
     </style>
 </head>
+<script src="https://s95.cnzz.com/z_stat.php?id=1260990957&web_id=1260990957" language="JavaScript"></script>
 <body style="margin: 0">
 <%@ include file="/static/template/header.jsp"%>
 <div class="article-title" style="margin-top: 50px">
@@ -49,7 +50,7 @@
     </c:forEach>
     <div style="border-top: 1px solid #DDDFE2;"></div>
     <div style="margin-top: 30px;margin-left: 2%">
-        <img src="http://static.duoshuo.com/images/noavatar_default.png" alt="">
+        <img src="../../static/img/noavatar_default.png" alt="">
         <div id="commentContent" contenteditable="true" name="title"  id="title" style="border: 1px solid #DFDFDF;font-size: 15px;outline:none;
         background: #FFFFFF;padding:2px;min-height:100px;float: right;width:90%;" placeholder="如果遇到问题,请在此添加内容,我们会通过短信通知作者尽快解决" ></div>
         <div style="float: right;width: 90.4%;background: #F6F8FA;margin-bottom: 300px;border: 1px solid #DFDFDF;">
