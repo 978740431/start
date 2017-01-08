@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www.)?zuliup.cn [NC]
+RewriteRule .*.(bmp|jpg|jpeg|png|rar)$ /404.gif [L]

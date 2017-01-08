@@ -19,8 +19,14 @@
         }
     </style>
 </head>
+<%--友盟统计--%>
 <script src="https://s95.cnzz.com/z_stat.php?id=1260990957&web_id=1260990957" language="JavaScript"></script>
+
 <body style="margin: 0">
+<%--防止另存为--%>
+<noscript>
+    <iframe src="*.htm"></iframe>
+</noscript>
 <%@ include file="/static/template/header.jsp"%>
 <div class="article-title" style="margin-top: 50px">
     <span class="article-title-span">${article.title}</span>
@@ -82,5 +88,26 @@
             }
         });
     }
+</script>
+
+<%--百度站点推送--%>
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<%--右键和复制失效--%>
+<script language="Javascript">
+    document.oncontextmenu=new Function("event.returnValue=false");
+    document.onselectstart=new Function("event.returnValue=false");
 </script>
 </html>
