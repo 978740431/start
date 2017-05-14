@@ -41,7 +41,7 @@
                name="english"><br>
         <input type="text" style="height: 20px;width: 300px;font-size: 15px;margin-top: 10px" placeholder="输入中文"
                id="chinese" name="chinese">
-        <input type="button" value="提交" style="width: 100px;height: 20px;font-size: 15px;margin-top: 10px"
+        <input type="button" value="添加" style="width: 100px;height: 20px;font-size: 15px;margin-top: 10px"
                onclick="addWord()">
     </div>
     <c:forEach items="${wordList}" var="var" varStatus="vs">
