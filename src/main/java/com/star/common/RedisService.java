@@ -1,15 +1,14 @@
 package com.star.common;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class RedisService {

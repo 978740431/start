@@ -24,3 +24,13 @@ CREATE TABLE start.`send_sms` (
 `is_used` int(1) DEFAULT '0' COMMENT '是否使用过，0未使用，1已使用',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `english_word` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`english` varchar(255) CHARACTER SET latin1 NOT NULL,
+`chinese` varchar(255) NOT NULL,
+`create_time` datetime DEFAULT NULL,
+`source` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='单词表'

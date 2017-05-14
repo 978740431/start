@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.star.mapper.EnglishChineseMapper">
+
+
+    <select id="queryUserWordList" parameterType="com.star.model.EnglishWord" resultType="com.star.model.EnglishWord">
+        select
+          *
+        from
+            english_word
+            WHERE 1=1
+            <if test="english != null">english like concat('%',#{english},'%')</if>
+        ORDER BY english
+    </select>
+
+    <insert id="addWord" parameterType="com.star.model.EnglishWord">
+        INSERT INTO start.english_word (english, chinese, create_time, source) VALUES (#{english}, #{chinese}, now(), #{source});
+    </insert>
+</mapper>
