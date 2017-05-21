@@ -14,4 +14,5 @@ public interface EnglishChineseMapper {
     List<EnglishWord> queryUserWordList();
 
     void addWord(EnglishWord englishWord);
+    void updateWord(EnglishWord englishWord);
 }

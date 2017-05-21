@@ -14,6 +14,19 @@
     </select>
 
     <insert id="addWord" parameterType="com.star.model.EnglishWord">
-        INSERT INTO start.english_word (english, chinese, create_time, source) VALUES (#{english}, #{chinese}, now(), #{source});
+        INSERT INTO start.english_word (english, chinese, create_time, source,phonetic,example)
+        VALUES (#{english}, #{chinese}, now(), #{source}, #{phonetic}, #{example});
     </insert>
+
+    <update id="updateWord" parameterType="com.star.model.EnglishWord">
+        update english_word
+        <set>
+            <if test="english != null and english != ''">english = #{english},</if>
+            <if test="chinese != null and chinese != ''">chinese = #{chinese},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="phonetic != null">phonetic = #{phonetic},</if>
+            <if test="example != null">example = #{example},</if>
+        </set>
+        where id=#{id}
+    </update>
 </mapper>

@@ -31,16 +31,41 @@ public class EnglishChineseController {
     public ModelAndView index() {
 
         List<EnglishWord> wordList = englishChineseService.queryUserWordList();
+        /*for (EnglishWord englishWord : wordList) {
+            String phonetic = englishWord.getPhonetic();
+            if (null != phonetic && phonetic.contains("'")){
+                englishWord.setPhonetic(phonetic.replace("\'","\\\'"));
+            }
+        }*/
         ModelAndView mv = new ModelAndView();
         mv.setViewName("word_list");
         mv.addObject("wordList", wordList);
         return mv;
     }
+
     @ResponseBody
     @RequestMapping(value = "/add_word", method = RequestMethod.POST)
     public String addWord(EnglishWord englishWord) {
         ObjectMapper mapper = new ObjectMapper();
         englishChineseService.addWord(englishWord);
+        try {
+            return mapper.writeValueAsString("error");
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/update_word", method = RequestMethod.POST)
+    public String updateWord(EnglishWord englishWord) {
+        /*try {
+            englishWord.setChinese(new String(englishWord.getChinese().getBytes("ISO-8859-1"), "utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }*/
+        ObjectMapper mapper = new ObjectMapper();
+        englishChineseService.updateWord(englishWord);
         try {
             return mapper.writeValueAsString("error");
         } catch (JsonProcessingException e) {

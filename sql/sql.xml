@@ -33,4 +33,8 @@ CREATE TABLE `english_word` (
 `create_time` datetime DEFAULT NULL,
 `source` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='单词表'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='单词表';
+
+ALTER TABLE start.english_word ADD phonetic VARCHAR(255) NULL;
+
+ALTER TABLE start.english_word ADD example VARCHAR(1000) NULL;

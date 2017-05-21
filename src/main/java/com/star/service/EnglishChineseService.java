@@ -14,4 +14,6 @@ public interface EnglishChineseService {
     List<EnglishWord> queryUserWordList();
 
     void addWord(EnglishWord englishWord);
+
+    void updateWord(EnglishWord englishWord);
 }

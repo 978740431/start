@@ -28,4 +28,9 @@ public class EnglishChineseDaoImpl implements EnglishChineseDao{
     public void addWord(EnglishWord englishWord) {
         englishChineseMapper.addWord(englishWord);
     }
+
+    @Override
+    public void updateWord(EnglishWord englishWord) {
+        englishChineseMapper.updateWord(englishWord);
+    }
 }

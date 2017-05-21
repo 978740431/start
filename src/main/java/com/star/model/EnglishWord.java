@@ -13,6 +13,8 @@ public class EnglishWord {
     private String chinese;
     private String source;
     private String createTime;
+    private String phonetic;
+    private String example;
 
 
     public int getId() {
@@ -53,5 +55,21 @@ public class EnglishWord {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getPhonetic() {
+        return phonetic;
+    }
+
+    public void setPhonetic(String phonetic) {
+        this.phonetic = phonetic;
+    }
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
     }
 }

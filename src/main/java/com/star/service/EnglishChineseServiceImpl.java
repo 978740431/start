@@ -29,4 +29,9 @@ public class EnglishChineseServiceImpl implements EnglishChineseService{
     public void addWord(EnglishWord englishWord) {
         englishChineseDao.addWord(englishWord);
     }
+
+    @Override
+    public void updateWord(EnglishWord englishWord) {
+        englishChineseDao.updateWord(englishWord);
+    }
 }
