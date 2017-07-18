@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="../../static/css/articleDetails.css"/>
     <link rel="stylesheet" href="../../static/css/wangEditor.min.css"/>
     <link rel="stylesheet" href="../../static/css/wangEditorCss.css"/>
+    <%-- 图片有预览效果--%>
+    <link href="../../static/css/lightbox.css" rel="stylesheet">
+
     <title>${article.title} - zuliup - 六篇</title>
     <style>
         [contenteditable=true]:empty:before {
@@ -65,6 +68,7 @@
     </div>
 </div>
 </body>
+<script type="text/javascript" src="../../static/js/lightbox.js"></script>
 <script type="text/javascript">
 
     function saveComment(){
@@ -87,6 +91,15 @@
                 }
             }
         });
+    }
+
+    window.onload = function () {
+        var imgs = document.getElementsByTagName('img');
+        for (var i = 0;i<imgs.length;i++){
+            imgs[i].setAttribute("data-lightbox", "imgs-" + i);
+            imgs[i].setAttribute("id", "imgs-" + i);
+            $("#imgs-" + i).wrapAll("<a data-lightbox='"+ "imgs-" + i +"' href='"+ imgs[i].getAttribute('src') +"'></a>");
+        }
     }
 </script>
 
