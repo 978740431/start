@@ -38,3 +38,130 @@ PRIMARY KEY (`id`)
 ALTER TABLE start.english_word ADD phonetic VARCHAR(255) NULL;
 
 ALTER TABLE start.english_word ADD example VARCHAR(1000) NULL;
+
+
+
+
+
+
+
+-- 跟新一波被倒好了
+
+        -- auto-generated definition
+        CREATE TABLE article
+        (
+        id                 INT AUTO_INCREMENT,
+        title              VARCHAR(255)            NULL,
+        author             VARCHAR(30)             NULL,
+        create_time        DATETIME                NULL,
+        content            TEXT                    NULL,
+        price              INT                     NULL,
+        uid                INT                     NULL,
+        is_delete          TINYINT(1) DEFAULT '0'  NULL
+        COMMENT '是否删除,0未删除,1已删除',
+        article_generalize VARCHAR(255) DEFAULT '' NULL
+        COMMENT '文章概括',
+        article_length     INT DEFAULT '0'         NULL
+        COMMENT '文章字数',
+        read_times         INT DEFAULT '0'         NULL
+        COMMENT '阅读次数',
+        CONSTRAINT `PRIMARY`
+        PRIMARY KEY (id)
+        );
+
+
+
+        -- auto-generated definition
+        CREATE TABLE article_comment
+        (
+        id              INT AUTO_INCREMENT,
+        article_id      INT                NOT NULL,
+        comment_content VARCHAR(255)       NOT NULL,
+        create_time     DATETIME           NOT NULL,
+        uid             INT                NOT NULL,
+        is_del          INT(1) DEFAULT '0' NOT NULL
+        COMMENT '是否删除,0未删除,1已删除',
+        CONSTRAINT `PRIMARY`
+        PRIMARY KEY (id)
+        );
+
+
+
+        -- auto-generated definition
+        CREATE TABLE english_word
+        (
+        id          INT AUTO_INCREMENT,
+        english     VARCHAR(255)  NOT NULL,
+        chinese     VARCHAR(255)  NOT NULL,
+        create_time DATETIME      NULL,
+        source      VARCHAR(255)  NULL,
+        phonetic    VARCHAR(255)  NULL,
+        example     VARCHAR(1000) NULL,
+        CONSTRAINT `PRIMARY`
+        PRIMARY KEY (id)
+        )
+        COMMENT '单词表';
+
+
+
+
+
+        -- auto-generated definition
+        CREATE TABLE order_log
+        (
+        order_id    INT      NOT NULL,
+        create_time DATETIME NULL,
+        number      INT      NULL,
+        id          INT AUTO_INCREMENT,
+        CONSTRAINT `PRIMARY`
+        PRIMARY KEY (id)
+        );
+        CREATE INDEX idx_order_id
+        ON order_log (order_id);
+
+
+
+        -- auto-generated definition
+        CREATE TABLE send_sms
+        (
+        id          INT AUTO_INCREMENT,
+        send_code   VARCHAR(255)       NOT NULL
+        COMMENT '发送的内容',
+        create_time DATETIME           NOT NULL,
+        mobile      VARCHAR(255)       NOT NULL
+        COMMENT '手机号，用户id可能不存在',
+        sms_temp    VARCHAR(255)       NOT NULL
+        COMMENT '对应阿里大于模板',
+        is_used     INT(1) DEFAULT '0' NULL
+        COMMENT '是否使用过，0未使用，1已使用',
+        CONSTRAINT `PRIMARY`
+        PRIMARY KEY (id)
+        );
+
+        -- auto-generated definition
+        CREATE TABLE user
+        (
+        id              INT AUTO_INCREMENT,
+        username        VARCHAR(255)            NULL,
+        password        VARCHAR(255)            NULL,
+        create_time     DATETIME                NULL,
+        last_login_time DATETIME                NULL,
+        uuid            VARCHAR(50)             NULL,
+        nick_name       VARCHAR(255) DEFAULT '' NULL
+        COMMENT '昵称',
+        CONSTRAINT `PRIMARY`
+        PRIMARY KEY (id)
+        );
+
+
+        -- auto-generated definition
+        CREATE TABLE visit_record
+        (
+        id          INT AUTO_INCREMENT,
+        ip          VARCHAR(255) NULL,
+        username    VARCHAR(255) NULL,
+        visit_time  DATETIME     NULL,
+        request_url VARCHAR(255) NULL,
+        CONSTRAINT `PRIMARY`
+        PRIMARY KEY (id)
+        );

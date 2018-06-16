@@ -23,6 +23,7 @@
 				<bean class="redis.clients.jedis.JedisShardInfo">
 					<constructor-arg index="0" value="${redis.node1.ip}"/>
 					<constructor-arg index="1" value="${redis.node1.port}"/>
+					<property name="password" value="${redis.node1.password}"></property>
 				</bean>
 				<!-- 其他Redis节点配置到这里即可 -->
 			</list>
