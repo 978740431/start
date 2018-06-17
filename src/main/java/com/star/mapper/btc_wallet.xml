@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.star.mapper.BtcWalletMapper">
+
+    <sql id="tableName">
+		btc_wallet
+	</sql>
+
+    <sql id="selectColumns">
+        select
+        id id ,
+        block_id blockId ,
+        btc_address btcAddress ,
+        btc_amount btcAmount ,
+        create_time createTime FROM
+        <include refid="tableName"/>
+        t
+    </sql>
+
+    <!-- 添加 -->
+    <insert id="createBtcWallet" parameterType="com.star.model.btc.BtcWallet" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="tableName"/>
+        (block_id,btc_address,btc_amount,create_time)
+        VALUES
+        (#{blockId} ,#{btcAddress} ,#{btcAmount} ,#{createTime} )
+    </insert>
+
+
+    <select id="findListByModel" parameterType="com.star.model.btc.BtcWalletQuery"
+            resultType="com.star.model.btc.BtcWallet">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+        <if test="orderStr != null">order by #{orderStr}</if>
+    </select>
+
+    <select id="findById" resultType="com.star.model.btc.BtcWallet"
+            parameterType="Long">
+        <include refid="selectColumns"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="findObjectByModel" parameterType="com.star.model.btc.BtcWalletQuery"
+            resultType="com.star.model.btc.BtcWallet">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+    </select>
+
+    <sql id="pageConditions">
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="blockId != null">AND block_id = #{blockId}</if>
+            <if test="btcAddress != '' and btcAddress != null">AND btc_address = #{btcAddress}</if>
+            <if test="btcAmount != null">AND btc_amount = #{btcAmount}</if>
+            <if test="createTime != '' and createTime != null">AND create_time = #{createTime}</if>
+        </where>
+    </sql>
+
+
+    <update id="update" parameterType="com.star.model.btc.BtcWallet">
+        <include refid="update_sql"/>
+    </update>
+
+    <sql id="update_sql">
+        UPDATE
+        <include refid="tableName"/>
+        <set>
+            <if test="blockId != null">block_id = #{blockId} ,</if>
+            <if test="btcAddress != null">btc_address = #{btcAddress} ,</if>
+            <if test="btcAmount != null">btc_amount = #{btcAmount} ,</if>
+            <if test="createTime != null">create_time = #{createTime} ,</if>
+        </set>
+        WHERE innerUUID = #{innerUUID} and user_id=#{userId}
+    </sql>
+
+
+</mapper>
