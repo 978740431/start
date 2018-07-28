@@ -14,16 +14,18 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * @Author 张楠
- * @Date 2018-06-2018/6/16 上午11:01
+ * @Date 2018-06-2018/6/20 下午5:46
  * @Describe
  * @Version
  * @since
  */
 @Service
-public class QueryBTCBlockServiceImpl implements QueryBTCBlockService {
+public class QueryBTCBlockV2ServiceImpl implements QueryBTCBlockV2Service {
 
 
     @Resource
@@ -33,28 +35,53 @@ public class QueryBTCBlockServiceImpl implements QueryBTCBlockService {
     private BtcTransactionHistoryDAO btcTransactionHistoryDAO;
 
 
-    @Override
-    public void queryBlock() {
+    private final BlockingQueue<BlockList> blockingQueue = new ArrayBlockingQueue<BlockList>(10);
 
-        //获取最大的钱包编号,用于之后创建新的钱包的时候标记
-        Long maxBlockId = 0L;
-        BtcWallet maxBtcWallet = btcWalletDAO.findMaxWalletBlock();
-        if (null != maxBtcWallet) {
-            maxBlockId = maxBtcWallet.getBlockId();
-        }
+    public static void main(String[] args) {
+        QueryBTCBlockV2ServiceImpl test3 = new QueryBTCBlockV2ServiceImpl();
+        new Thread(test3.new Producer()).start();
+        new Thread(test3.new Consumer()).start();
+    }
 
-        try {
-            int index = 31736;
-            while (index < 99999999) {
+    /**
+     * 请求
+     */
+    class Producer implements Runnable {
+        @Override
+        public void run() {
+            try {
+                int index = 31736;
+                DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+                while (true) {
+                    HttpResponse response = defaultHttpClient.execute(new HttpGet("https://blockchain.info/zh-cn/block-height/" + index + "?format=json"));
+                    int statusCode = response.getStatusLine().getStatusCode();
+                    if (statusCode != 200) {
+                        continue;
+                    }
+                    String json2 = EntityUtils.toString(response.getEntity(), "utf-8");
+                    BlockList blockList = new Gson().fromJson(json2, BlockList.class);
 
-                // 请求获取区块
-                BlockList blockList = postBlock(index);
-
-                if (null == blockList) {
-                    Thread.sleep(1000);
-                    continue;
+                    blockingQueue.put(blockList);
+                    System.out.println(Thread.currentThread().getName() + "生产========" + index);
+                    index++;
                 }
-                System.out.println(Thread.currentThread().getName() + "height========" + blockList.getBlocks().get(0).getHeight());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 消费者
+     */
+    class Consumer implements Runnable {
+        @Override
+        public void run() {
+            try {
+
+                //每次启动需要修改两个地方,这里是查询最大的钱包
+                Long maxBlockId = 31866L;
+                BlockList blockList = blockingQueue.take();
 
 
                 //1.查看是否有该地址
@@ -123,12 +150,7 @@ public class QueryBTCBlockServiceImpl implements QueryBTCBlockService {
                                         block.getHeight(), block.getHash(), 1);
                                 createHistoryList.add(btcTransactionHistory);
                                 inputAndOutAddressSet.add(prevOut.getAddr());
-                                //更新钱包的数量,减掉比特币
-                                //BtcWallet reducesBtc = new BtcWallet();
-                                //reducesBtc.setBtcAddress(prevOut.getAddr());
-                                //reducesBtc.setBtcAmount(prevOut.getValue());
-                                //reducesBtc.setUpdateTime(block.getTime() + "");
-                                //btcWalletDAO.reducesBtc(reducesBtc);
+
                             }
                         }
                         List<OutList> outList = tx.getOut();
@@ -138,12 +160,7 @@ public class QueryBTCBlockServiceImpl implements QueryBTCBlockService {
                                     block.getHeight(), block.getHash(), 2);
                             createHistoryList.add(btcTransactionHistory);
                             inputAndOutAddressSet.add(out.getAddr());
-                            //更新钱包的数量,增加比特币
-                            //BtcWallet reducesBtc = new BtcWallet();
-                            //reducesBtc.setBtcAddress(out.getAddr());
-                            //reducesBtc.setBtcAmount(out.getValue());
-                            //reducesBtc.setUpdateTime(block.getTime() + "");
-                            //btcWalletDAO.addBtc(reducesBtc);
+
                         }
                     }
                 }
@@ -153,7 +170,6 @@ public class QueryBTCBlockServiceImpl implements QueryBTCBlockService {
                 for (Block block : blockListForIter) {
                     //先把有些wallet的余额为null置为0
                     if (!inputAndOutAddressSet.isEmpty()) {
-                        //btcWalletDAO.updateAmountFromNullToZero();
                         //更新余额
                         BtcWallet btcWalletForUpdateAmount = new BtcWallet();
                         btcWalletForUpdateAmount.setHash(block.getHash());
@@ -163,31 +179,12 @@ public class QueryBTCBlockServiceImpl implements QueryBTCBlockService {
                     }
 
                 }
-                index++;
+
+
+                System.out.println(Thread.currentThread().getName() + "height========" + blockList.getBlocks().get(0).getHeight());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
     }
-
-    /**
-     * 请求获取区块
-     *
-     * @param index 区块号
-     * @return
-     * @throws Exception
-     */
-    public BlockList postBlock(int index) throws Exception {
-        HttpResponse response = new DefaultHttpClient().execute(new HttpGet("https://blockchain.info/zh-cn/block-height/" + index + "?format=json"));
-        int statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode != 200) {
-            return null;
-        }
-        String json2 = EntityUtils.toString(response.getEntity(), "utf-8");
-        return new Gson().fromJson(json2, BlockList.class);
-    }
-
-
 }

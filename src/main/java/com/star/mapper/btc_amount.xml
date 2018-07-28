@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.star.mapper.BtcAmountMapper">
+
+    <sql id="tableName">
+		btc_amount
+	</sql>
+
+    <sql id="selectColumns">
+        select
+        id id ,
+        btc_address btcAddress ,
+        btc_count btcCount ,
+        btc_percent btcPercent ,
+        create_time createTime ,
+        ranking ranking FROM
+        <include refid="tableName"/>
+        t
+    </sql>
+
+    <!-- 添加 -->
+    <insert id="create" parameterType="com.star.model.btc.BtcAmount" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="tableName"/>
+        (id,btc_address,btc_count,btc_percent,create_time,ranking)
+        VALUES
+        (#{id} ,#{btcAddress} ,#{btcCount} ,#{btcPercent} ,#{createTime} ,#{ranking} )
+        ON DUPLICATE KEY UPDATE
+        id = VALUES(id) ,btc_address = VALUES(btc_address) ,btc_count = VALUES(btc_count) ,btc_percent =
+        VALUES(btc_percent) ,create_time = VALUES(create_time) ,ranking = VALUES(ranking)
+    </insert>
+
+    <!-- 批量 添加 -->
+    <insert id="create_BATCH" parameterType="List">
+        INSERT INTO
+        <include refid="tableName"/>
+        (id,btc_address,btc_count,btc_percent,create_time,ranking)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id} ,#{item.btcAddress} ,#{item.btcCount} ,#{item.btcPercent} ,#{item.createTime} ,#{item.ranking} )
+        </foreach>
+    </insert>
+
+    <select id="findListByModel" parameterType="com.star.model.btc.BtcAmountQuery"
+            resultType="com.star.model.btc.BtcAmount">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+        <if test="orderStr != null">order by #{orderStr}</if>
+    </select>
+
+    <select id="findById" resultType="com.star.model.btc.BtcAmount"
+            parameterType="Long">
+        <include refid="selectColumns"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="findObjectByModel" parameterType="com.star.model.btc.BtcAmountQuery"
+            resultType="com.star.model.btc.BtcAmount">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+    </select>
+
+    <select id="queryList" parameterType="com.star.model.btc.BtcAmountQuery"
+            resultType="com.star.model.btc.BtcAmount">
+        select
+            btc_address btcAddress ,
+            btc_count btcCount ,
+            btc_percent btcPercent ,
+            ranking ranking,
+            (select btc_count from btc_amount ba2 where ba2.btc_address=ba.btc_address and ba2.create_time=#{lastHourTime}) lastHourBtcCount,
+            (select btc_count from btc_amount ba2 where ba2.btc_address=ba.btc_address and ba2.create_time=#{todayTime}) todayBtcCount,
+            (select btc_count from btc_amount ba2 where ba2.btc_address=ba.btc_address and ba2.create_time=#{yesterdayTime}) yesterdayBtcCount,
+            (select btc_count from btc_amount ba2 where ba2.btc_address=ba.btc_address and ba2.create_time=#{sevenTime}) sevenBtcCount
+        from btc_amount ba
+        where create_time=#{queryTime}
+    </select>
+
+    <select id="queryTopList" parameterType="com.star.model.btc.BtcAmountQuery"
+            resultType="com.star.model.btc.BtcAmount">
+        select sum(btc_count) btcCount,create_time createTime from btc_amount group by create_time
+    </select>
+
+    <sql id="pageConditions">
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="btcAddress != '' and btcAddress != null">AND btc_address = #{btcAddress}</if>
+            <if test="btcCount != null">AND btc_count = #{btcCount}</if>
+            <if test="btcPercent != '' and btcPercent != null">AND btc_percent = #{btcPercent}</if>
+            <if test="createTime != null">AND create_time = #{createTime}</if>
+            <if test="ranking != null">AND ranking = #{ranking}</if>
+        </where>
+    </sql>
+
+
+    <update id="update" parameterType="com.star.model.btc.BtcAmount">
+        <include refid="update_sql"/>
+    </update>
+
+    <sql id="update_sql">
+        UPDATE
+        <include refid="tableName"/>
+        <set>
+            <if test="btcAddress != null">btc_address = #{btcAddress} ,</if>
+            <if test="btcCount != null">btc_count = #{btcCount} ,</if>
+            <if test="btcPercent != null">btc_percent = #{btcPercent} ,</if>
+            <if test="createTime != null">create_time = #{createTime} ,</if>
+            <if test="ranking != null">ranking = #{ranking} ,</if>
+        </set>
+        WHERE innerUUID = #{innerUUID} and user_id=#{userId}
+    </sql>
+
+
+</mapper>

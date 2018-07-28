@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.star.mapper.CoinCountTimeMapper">
+
+
+    <select id="queryTopList" parameterType="com.star.model.btc.BtcAmountQuery"
+            resultType="com.star.model.btc.BtcAmount">
+        select sum(coin_count) btcCount,create_time createTime from coin_count_time where coin_type=#{coinType} and data_type=#{dataType} group by create_time
+    </select>
+
+    <select id="queryTopListV2" parameterType="com.star.model.btc.CoinCountTimeQuery"
+            resultType="com.star.model.btc.CoinCountTime">
+        select
+            coin_count coinCount,
+            create_time createTime,
+            coin_type coinType,
+            data_type dataType
+        from
+            coin_count_time
+        where coin_type in
+        <foreach item="item" index="index" collection="needIcoTokenList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+</mapper>

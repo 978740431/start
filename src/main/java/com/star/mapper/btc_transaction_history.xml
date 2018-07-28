@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.star.mapper.BtcTransactionHistoryMapper">
+
+    <sql id="tableName">
+		btc_transaction_history
+	</sql>
+
+    <sql id="selectColumns">
+        select
+        id id ,
+        input_address inputAddress ,
+        out_address outAddress ,
+        create_time createTime ,
+        btc_amount btcAmount ,
+        height height ,
+        hash hash FROM
+        <include refid="tableName"/>
+        t
+    </sql>
+
+    <!-- 添加 -->
+    <insert id="create" parameterType="com.star.model.btc.BtcTransactionHistory" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO
+        <include refid="tableName"/>
+        (btc_address,create_time,btc_amount,height,hash,add_or_less)
+        VALUES
+        (#{btcAddress},#{createTime} ,#{btcAmount} ,#{height} ,#{hash},#{addOrLess} )
+    </insert>
+
+    <!-- 批量 添加 -->
+    <insert id="createBatch" parameterType="List">
+        INSERT INTO
+        <include refid="tableName"/>
+        (btc_address,create_time,btc_amount,height,hash,add_or_less)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.btcAddress} ,#{item.createTime} ,#{item.btcAmount} ,#{item.height},#{item.hash},#{item.addOrLess} )
+        </foreach>
+    </insert>
+
+    <select id="findListByModel" parameterType="com.star.model.btc.BtcTransactionHistory"
+            resultType="com.star.model.btc.BtcTransactionHistory">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+        <if test="orderStr != null">order by #{orderStr}</if>
+    </select>
+
+    <select id="findById" resultType="com.star.model.btc.BtcTransactionHistory"
+            parameterType="Long">
+        <include refid="selectColumns"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="findObjectByModel" parameterType="com.star.model.btc.BtcTransactionHistoryQuery"
+            resultType="com.star.model.btc.BtcTransactionHistory">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+    </select>
+
+    <sql id="pageConditions">
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="inputAddress != '' and inputAddress != null">AND input_address = #{inputAddress}</if>
+            <if test="outAddress != '' and outAddress != null">AND out_address = #{outAddress}</if>
+            <if test="createTime != '' and createTime != null">AND create_time = #{createTime}</if>
+            <if test="btcAmount != null">AND btc_amount = #{btcAmount}</if>
+            <if test="height != null">AND height = #{height}</if>
+            <if test="hash != '' and hash != null">AND hash = #{hash}</if>
+        </where>
+    </sql>
+
+
+    <update id="update" parameterType="com.star.model.btc.BtcTransactionHistory">
+        <include refid="update_sql"/>
+    </update>
+
+    <sql id="update_sql">
+        UPDATE
+        <include refid="tableName"/>
+        <set>
+            <if test="inputAddress != null">input_address = #{inputAddress} ,</if>
+            <if test="outAddress != null">out_address = #{outAddress} ,</if>
+            <if test="createTime != null">create_time = #{createTime} ,</if>
+            <if test="btcAmount != null">btc_amount = #{btcAmount} ,</if>
+            <if test="height != null">height = #{height} ,</if>
+            <if test="hash != null">hash = #{hash} ,</if>
+        </set>
+        WHERE innerUUID = #{innerUUID} and user_id=#{userId}
+    </sql>
+
+
+</mapper>

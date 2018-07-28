@@ -1,6 +1,8 @@
 package com.star.model.btc;
 
 
+import java.util.HashSet;
+
 /**
  * @author
  * @since 2018-06-17
@@ -28,14 +30,23 @@ public class BtcWallet {
      **/
     private String createTime;
 
+    private String updateTime;
+    /**
+     * 区块历史里的hash
+     */
+    private String hash;
+
+    private HashSet<String> inputAndOutAddressSet;
+
     public BtcWallet() {
     }
 
-    public BtcWallet(Long blockId, String btcAddress, Long btcAmount, String createTime) {
+    public BtcWallet(Long blockId, String btcAddress, Long btcAmount, String createTime,String updateTime) {
         this.blockId = blockId;
         this.btcAddress = btcAddress;
         this.btcAmount = btcAmount;
         this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
 
@@ -139,4 +150,27 @@ public class BtcWallet {
         this.createTime = createTime;
     }
 
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public HashSet<String> getInputAndOutAddressSet() {
+        return inputAndOutAddressSet;
+    }
+
+    public void setInputAndOutAddressSet(HashSet<String> inputAndOutAddressSet) {
+        this.inputAndOutAddressSet = inputAndOutAddressSet;
+    }
 }

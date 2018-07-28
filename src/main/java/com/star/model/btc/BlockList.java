@@ -9,7 +9,7 @@ import java.util.List;
  * @Version
  * @since
  */
-public class blockList {
+public class BlockList {
 
     private List<Block> blocks;
 

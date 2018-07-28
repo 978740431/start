@@ -21,24 +21,46 @@
     <insert id="createBtcWallet" parameterType="com.star.model.btc.BtcWallet" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         <include refid="tableName"/>
-        (block_id,btc_address,btc_amount,create_time)
+        (block_id,btc_address,btc_amount,create_time,update_time)
         VALUES
-        (#{blockId} ,#{btcAddress} ,#{btcAmount} ,#{createTime} )
+        (#{blockId} ,#{btcAddress} ,#{btcAmount} ,#{createTime},#{updateTime} )
     </insert>
 
 
-    <select id="findListByModel" parameterType="com.star.model.btc.BtcWalletQuery"
-            resultType="com.star.model.btc.BtcWallet">
-        <include refid="selectColumns"/>
-        <include refid="pageConditions"/>
-        <if test="orderStr != null">order by #{orderStr}</if>
+    <!-- 批量 添加 -->
+    <insert id="createBtcWalletBatch" parameterType="List">
+        INSERT INTO
+        <include refid="tableName"/>
+        (block_id,btc_address,btc_amount,create_time,update_time)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.blockId} ,#{item.btcAddress} ,#{item.btcAmount} ,#{item.createTime},#{item.updateTime} )
+        </foreach>
+    </insert>
+
+
+
+    <select id="findMaxWalletBlock" parameterType="com.star.model.btc.BtcWalletQuery" resultType="com.star.model.btc.BtcWallet">
+        select max(block_id) blockId from <include refid="tableName"/>
     </select>
 
-    <select id="findById" resultType="com.star.model.btc.BtcWallet"
-            parameterType="Long">
+
+    <select id="findByAddress" resultType="com.star.model.btc.BtcWallet"
+            parameterType="String">
         <include refid="selectColumns"/>
-        WHERE id = #{id}
+        WHERE btc_address = #{btcAddress}
     </select>
+
+
+
+    <select id="findByAddressList" resultType="com.star.model.btc.BtcWallet" parameterType="com.star.model.btc.OutList">
+        <include refid="selectColumns"/>
+        WHERE btc_address in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item.addr}
+        </foreach>
+    </select>
+
 
     <select id="findObjectByModel" parameterType="com.star.model.btc.BtcWalletQuery"
             resultType="com.star.model.btc.BtcWallet">
@@ -57,21 +79,51 @@
     </sql>
 
 
-    <update id="update" parameterType="com.star.model.btc.BtcWallet">
-        <include refid="update_sql"/>
-    </update>
-
-    <sql id="update_sql">
+    <update id="addBtc" parameterType="com.star.model.btc.BtcWallet">
         UPDATE
         <include refid="tableName"/>
         <set>
-            <if test="blockId != null">block_id = #{blockId} ,</if>
-            <if test="btcAddress != null">btc_address = #{btcAddress} ,</if>
-            <if test="btcAmount != null">btc_amount = #{btcAmount} ,</if>
-            <if test="createTime != null">create_time = #{createTime} ,</if>
+            <if test="btcAmount != null">btc_amount = btc_amount+#{btcAmount} ,</if>
+            <if test="updateTime != null">update_time = #{updateTime} ,</if>
         </set>
-        WHERE innerUUID = #{innerUUID} and user_id=#{userId}
-    </sql>
+        WHERE btc_address = #{btcAddress}
+    </update>
+
+
+    <update id="reducesBtc" parameterType="com.star.model.btc.BtcWallet">
+        UPDATE
+        <include refid="tableName"/>
+        <set>
+            <if test="btcAmount != null">btc_amount = btc_amount-#{btcAmount} ,</if>
+            <if test="updateTime != null">update_time = #{updateTime} ,</if>
+        </set>
+        WHERE btc_address = #{btcAddress}
+    </update>
+
+    <update id="updateBtcWalletAmount" parameterType="com.star.model.btc.BtcWallet">
+        UPDATE btc_wallet bw
+        SET
+        bw.update_time=#{updateTime},
+        bw.btc_amount = bw.btc_amount + (
+        SELECT
+        sum(bth.btc_amount)
+        FROM
+        btc_transaction_history bth
+        WHERE bth.btc_address = bw.btc_address and bth.hash = #{hash}
+        )
+        where bw.btc_address in
+        <foreach item="item" index="index" collection="inputAndOutAddressSet" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+
+    <update id="updateAmountFromNullToZero" parameterType="com.star.model.btc.BtcWallet">
+        UPDATE btc_wallet bw
+        SET bw.btc_amount = 0
+        WHERE bw.btc_amount is null
+    </update>
+
 
 
 </mapper>

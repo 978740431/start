@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.star.mapper.ICOTokenMapper">
+
+    <sql id="tableName">
+		ico_token
+	</sql>
+
+    <sql id="selectColumns">
+        select
+        id id ,
+        token_name tokenName ,
+        token token ,
+        ico_money icoMoney ,
+        current_money currentMoney ,
+        top_have topHave ,
+        ico_number icoNumber,
+        charts_name chartsName,
+        need_count_number needCountNumber
+        FROM
+        <include refid="tableName"/>
+        t
+    </sql>
+
+    <!-- 添加 -->
+    <insert id="create" parameterType="com.star.model.btc.IcoToken" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="tableName"/>
+        (id,token_name,token,ico_money,current_money,top_have,ico_number)
+        VALUES
+        (#{id} ,#{tokenName} ,#{token} ,#{icoMoney} ,#{currentMoney} ,#{topHave} ,#{icoNumber} )
+    </insert>
+
+    <!-- 批量 添加 -->
+    <insert id="createAllToken" parameterType="com.star.model.btc.IcoToken">
+        INSERT INTO
+        <include refid="tableName"/>
+        (id,token_name,token,ico_money,current_money,top_have,ico_number)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id} ,#{item.tokenName} ,#{item.token} ,#{item.icoMoney} ,#{item.currentMoney} ,#{item.topHave}
+            ,#{item.icoNumber} )
+        </foreach>
+    </insert>
+
+    <select id="findListByModel" parameterType="com.star.model.btc.IcoTokenQuery"
+            resultType="com.star.model.btc.IcoToken">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+        <if test="orderStr != null">order by #{orderStr}</if>
+    </select>
+
+    <select id="findNeedList" parameterType="com.star.model.btc.IcoTokenQuery" resultType="com.star.model.btc.IcoToken">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+    </select>
+
+    <select id="findById" resultType="com.star.model.btc.IcoToken"
+            parameterType="Long">
+        <include refid="selectColumns"/>
+        WHERE id = #{id}
+    </select>
+
+    <select id="findObjectByModel" parameterType="com.star.model.btc.IcoTokenQuery"
+            resultType="com.star.model.btc.IcoToken">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+    </select>
+
+    <sql id="pageConditions">
+        <where>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="tokenName != '' and tokenName != null">AND token_name = #{tokenName}</if>
+            <if test="token != '' and token != null">AND token = #{token}</if>
+            <if test="icoMoney != null">AND ico_money = #{icoMoney}</if>
+            <if test="currentMoney != null">AND current_money = #{currentMoney}</if>
+            <if test="topHave != null">AND top_have = #{topHave}</if>
+            <if test="icoNumber != null">AND ico_number = #{icoNumber}</if>
+            <if test="needPull != null">AND need_pull = #{needPull}</if>
+            <if test="needShow != null">AND need_show = #{needShow}</if>
+        </where>
+    </sql>
+
+
+    <update id="update" parameterType="com.star.model.btc.IcoToken">
+        <include refid="update_sql"/>
+    </update>
+
+    <sql id="update_sql">
+        UPDATE
+        <include refid="tableName"/>
+        <set>
+            <if test="tokenName != null">token_name = #{tokenName} ,</if>
+            <if test="token != null">token = #{token} ,</if>
+            <if test="icoMoney != null">ico_money = #{icoMoney} ,</if>
+            <if test="currentMoney != null">current_money = #{currentMoney} ,</if>
+            <if test="topHave != null">top_have = #{topHave} ,</if>
+            <if test="icoNumber != null">ico_number = #{icoNumber} ,</if>
+        </set>
+        WHERE innerUUID = #{innerUUID} and user_id=#{userId}
+    </sql>
+
+
+</mapper>
