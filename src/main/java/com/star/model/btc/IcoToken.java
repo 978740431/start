@@ -41,6 +41,7 @@ public class IcoToken {
 
     private Long leastNumber;
     private Integer needShow;
+    private Long minCount;
 
     public IcoToken() {
     }
@@ -51,6 +52,7 @@ public class IcoToken {
         this.icoNumber = icoNumber;
         this.chartsName = chartsName;
         this.leastNumber = leastNumber;
+
     }
 
     public IcoToken(String tokenName, String token, Long icoMoney, Long currentMoney, Long topHave, Long icoNumber) {
@@ -233,5 +235,13 @@ public class IcoToken {
 
     public void setNeedShow(Integer needShow) {
         this.needShow = needShow;
+    }
+
+    public Long getMinCount() {
+        return minCount;
+    }
+
+    public void setMinCount(Long minCount) {
+        this.minCount = minCount;
     }
 }

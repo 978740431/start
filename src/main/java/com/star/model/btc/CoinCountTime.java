@@ -1,5 +1,7 @@
 package com.star.model.btc;
 
+import java.util.Date;
+
 /**
  * @Author 张楠
  * @Date 2018-07-2018/7/23 下午9:46
@@ -11,7 +13,7 @@ public class CoinCountTime {
 
 
     private Long coinCount;
-    private String createTime;
+    private Date createTime;
     private String coinType;
     private Integer dataType;
 
@@ -24,11 +26,11 @@ public class CoinCountTime {
         this.coinCount = coinCount;
     }
 
-    public String getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 

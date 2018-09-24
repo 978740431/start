@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.star.mapper.EthAmountMapper">
+
+    <sql id="tableName">
+		eth_amount
+	</sql>
+
+    <sql id="selectColumns">
+        select
+        id id ,
+        eth_address ethAddress ,
+        eth_count ethCount ,
+        eth_percent ethPercent ,
+        create_time createTime ,
+        ranking ranking FROM
+        <include refid="tableName"/>
+        t
+    </sql>
+
+    <select id="queryList" parameterType="com.star.model.btc.EthAmountQuery" resultType="com.star.model.btc.EthAmount">
+        <include refid="selectColumns"/>
+        <include refid="pageConditions"/>
+        <if test="orderStr != null">order by #{orderStr}</if>
+    </select>
+
+    <select id="queryCount" parameterType="com.star.model.btc.EthAmountQuery" resultType="com.star.model.btc.EthAmount">
+
+        select create_time createTime from eth_amount group by create_time
+    </select>
+
+    <sql id="pageConditions">
+        <where>
+            <if test="ethAddress != '' and ethAddress != null">AND eth_address = #{ethAddress}</if>
+        </where>
+    </sql>
+
+
+
+
+</mapper>
