@@ -39,12 +39,10 @@
     <div>
         <input type="text" style="height: 20px;width: 300px;font-size: 15px" placeholder="输入英文" id="english"
                name="english"><br>
-        <input type="text" style="height: 20px;width: 300px;font-size: 15px;margin-top: 10px" placeholder="输入中文"
-               id="chinese" name="chinese"><br>
+        <textarea style="height: 40px;width: 300px;font-size: 15px;margin-top: 10px" placeholder="输入中文" id="chinese" name="chinese"></textarea><br>
         <input type="text" style="height: 20px;width: 300px;font-size: 15px;margin-top: 10px" placeholder="音标"
                id="phonetic" name="phonetic"><br>
-        <textarea style="height: 20px;width: 300px;font-size: 15px;margin-top: 10px" placeholder="例句"
-                  id="example" name="example"></textarea>
+        <textarea style="height: 40px;width: 300px;font-size: 15px;margin-top: 10px" placeholder="例句" id="example" name="example"></textarea>
 
         <input type="button" value="添加" style="width: 100px;height: 20px;font-size: 15px;margin-top: 10px"
                onclick="addWord()">

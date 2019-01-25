@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.star.mapper.WalletRecordMapper">
+
+
+    <select id="queryList" parameterType="com.star.model.btc.WalletRecordQuery"
+            resultType="com.star.model.btc.WalletRecord">
+        SELECT
+            coin_count,
+            record_time,
+            coin_type,
+            wallet_name
+        FROM wallet_record
+        where coin_type=#{coinType} and exchange_name=#{exchangeName}
+        order by record_time
+    </select>
+
+</mapper>

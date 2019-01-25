@@ -118,9 +118,4 @@
         s.parentNode.insertBefore(bp, s);
     })();
 </script>
-<%--右键和复制失效--%>
-<script language="Javascript">
-    document.oncontextmenu=new Function("event.returnValue=false");
-    document.onselectstart=new Function("event.returnValue=false");
-</script>
 </html>

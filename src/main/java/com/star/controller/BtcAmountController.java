@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by admin on 2016/6/18.
@@ -79,6 +76,129 @@ public class BtcAmountController {
         resultList.add(btcCreateTime10List);
         resultList.add(btcCount10List);
 
+
+        //Map<String, Object> yearMap = new HashMap<String, Object>(3);
+        //Map<String, List<String>> monthDayMap = null;
+        //String currentYear = "";
+        //
+        //for (BtcAmount btcAmount : btcAmount10List) {
+        //    String createYear = btcAmount.getCreateYear();
+        //    if (!currentYear.equals(createYear)) {
+        //        monthDayMap = new LinkedHashMap<String, List<String>>(35);
+        //        yearMap.put(createYear, monthDayMap);
+        //        currentYear = createYear;
+        //    }
+        //
+        //    String createMonthDay = btcAmount.getCreateMonthDay();
+        //    if (monthDayMap.containsKey(createMonthDay)) {
+        //        List<String> monthDayList = monthDayMap.get(createMonthDay);
+        //        monthDayList.add(btcAmount.getCreateHourMinute());
+        //    } else {
+        //        List<String> monthDayList = new ArrayList<String>();
+        //        monthDayMap.put(createMonthDay, monthDayList);
+        //    }
+        //    btcCount10List.add(btcAmount.getBtcCount());
+        //}
+        //
+        //Map<String,Object> result=new HashMap<String, Object>();
+        //result.put("aaa",yearMap);
+        //result.put("bbb",btcCount10List);
+        //return new Gson().toJson(result);
+
+
+
+
+        //btc 10~100
+        //btcAmountQuery.setCoinType("btc");
+        //btcAmountQuery.setDataType(11);
+        //List<BtcAmount> btcAmount10100List = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        //List<String> btcCreateTime10100List = new ArrayList<String>();
+        //List<Long> btcCount10100List = new ArrayList<Long>();
+        //for (BtcAmount btcAmount : btcAmount10100List) {
+        //    btcCreateTime10100List.add(format.format(btcAmount.getCreateTime()));
+        //    btcCount10100List.add(btcAmount.getBtcCount());
+        //}
+        //resultList.add(btcCreateTime10100List);
+        //resultList.add(btcCount10100List);
+
+
+        //btc 前100
+        //btcAmountQuery.setDataType(6);
+        //btcAmountQuery.setCoinType("btc");
+        //List<BtcAmount> btcAmount100List = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        //List<String> createTime100List = new ArrayList<String>();
+        //List<Long> btcCount100List = new ArrayList<Long>();
+        //for (BtcAmount btcAmount : btcAmount100List) {
+        //    createTime100List.add(format.format(btcAmount.getCreateTime()));
+        //    btcCount100List.add(btcAmount.getBtcCount());
+        //}
+        //resultList.add(createTime100List);
+        //resultList.add(btcCount100List);
+
+
+        //btc 前500
+        //btcAmountQuery.setCoinType("btc");
+        //btcAmountQuery.setDataType(1);
+        //List<BtcAmount> btcAmountList = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        //
+        //List<String> createTimeList = new ArrayList<String>();
+        //List<Long> btcCountList = new ArrayList<Long>();
+        //for (BtcAmount btcAmount : btcAmountList) {
+        //    createTimeList.add(format.format(btcAmount.getCreateTime()));
+        //    btcCountList.add(btcAmount.getBtcCount());
+        //}
+        //resultList.add(createTimeList);
+        //resultList.add(btcCountList);
+
+
+        //btc 前1000
+        //btcAmountQuery.setDataType(7);
+        //btcAmountQuery.setCoinType("btc");
+        //List<BtcAmount> btcAmount1000List = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        //List<String> createTime1000List = new ArrayList<String>();
+        //List<Long> btcCount1000List = new ArrayList<Long>();
+        //for (BtcAmount btcAmount : btcAmount1000List) {
+        //    createTime1000List.add(format.format(btcAmount.getCreateTime()));
+        //    btcCount1000List.add(btcAmount.getBtcCount());
+        //}
+        //resultList.add(createTime1000List);
+        //resultList.add(btcCount1000List);
+
+
+        //btc 前1500
+        //btcAmountQuery.setCoinType("btc");
+        //btcAmountQuery.setDataType(2);
+        //List<BtcAmount> btcAmount1500List = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        //
+        //List<String> createTime1500List = new ArrayList<String>();
+        //List<Long> btcCount1500List = new ArrayList<Long>();
+        //for (BtcAmount btcAmount : btcAmount1500List) {
+        //    createTime1500List.add(format.format(btcAmount.getCreateTime()));
+        //    btcCount1500List.add(btcAmount.getBtcCount());
+        //}
+        //resultList.add(createTime1500List);
+        //resultList.add(btcCount1500List);
+
+        return new Gson().toJson(resultList);
+    }
+
+
+    /**
+     * btc前500持仓列表
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/btc_list_10_100", method = RequestMethod.GET)
+    public String btcTopList10100() {
+
+        //返回的list
+        List<Object> resultList = new ArrayList<Object>();
+
+
+        BtcAmountQuery btcAmountQuery = new BtcAmountQuery();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
         //btc 10~100
         btcAmountQuery.setCoinType("btc");
         btcAmountQuery.setDataType(11);
@@ -92,8 +212,27 @@ public class BtcAmountController {
         resultList.add(btcCreateTime10100List);
         resultList.add(btcCount10100List);
 
+        return new Gson().toJson(resultList);
+    }
 
-        //btc 前100
+
+    /**
+     * btc前500持仓列表
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/btc_list_100", method = RequestMethod.GET)
+    public String btcTopList100() {
+
+        //返回的list
+        List<Object> resultList = new ArrayList<Object>();
+
+
+        BtcAmountQuery btcAmountQuery = new BtcAmountQuery();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        //btc 10~100
         btcAmountQuery.setDataType(6);
         btcAmountQuery.setCoinType("btc");
         List<BtcAmount> btcAmount100List = coinCountTimeMapper.queryTopList(btcAmountQuery);
@@ -106,8 +245,21 @@ public class BtcAmountController {
         resultList.add(createTime100List);
         resultList.add(btcCount100List);
 
+        return new Gson().toJson(resultList);
+    }
 
-        //btc 前500
+    @ResponseBody
+    @RequestMapping(value = "/btc_list_500", method = RequestMethod.GET)
+    public String btcTopList500() {
+
+        //返回的list
+        List<Object> resultList = new ArrayList<Object>();
+
+
+        BtcAmountQuery btcAmountQuery = new BtcAmountQuery();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        //btc 10~100
         btcAmountQuery.setCoinType("btc");
         btcAmountQuery.setDataType(1);
         List<BtcAmount> btcAmountList = coinCountTimeMapper.queryTopList(btcAmountQuery);
@@ -121,8 +273,21 @@ public class BtcAmountController {
         resultList.add(createTimeList);
         resultList.add(btcCountList);
 
+        return new Gson().toJson(resultList);
+    }
 
-        //btc 前1000
+    @ResponseBody
+    @RequestMapping(value = "/btc_list_1000", method = RequestMethod.GET)
+    public String btcTopList1000() {
+
+        //返回的list
+        List<Object> resultList = new ArrayList<Object>();
+
+
+        BtcAmountQuery btcAmountQuery = new BtcAmountQuery();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        //btc 10~100
         btcAmountQuery.setDataType(7);
         btcAmountQuery.setCoinType("btc");
         List<BtcAmount> btcAmount1000List = coinCountTimeMapper.queryTopList(btcAmountQuery);
@@ -135,8 +300,20 @@ public class BtcAmountController {
         resultList.add(createTime1000List);
         resultList.add(btcCount1000List);
 
+        return new Gson().toJson(resultList);
+    }
+    @ResponseBody
+    @RequestMapping(value = "/btc_list_1500", method = RequestMethod.GET)
+    public String btcTopList1500() {
 
-        //btc 前1500
+        //返回的list
+        List<Object> resultList = new ArrayList<Object>();
+
+
+        BtcAmountQuery btcAmountQuery = new BtcAmountQuery();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        //btc 10~100
         btcAmountQuery.setCoinType("btc");
         btcAmountQuery.setDataType(2);
         List<BtcAmount> btcAmount1500List = coinCountTimeMapper.queryTopList(btcAmountQuery);
@@ -152,6 +329,8 @@ public class BtcAmountController {
 
         return new Gson().toJson(resultList);
     }
+
+
 
 
     /**

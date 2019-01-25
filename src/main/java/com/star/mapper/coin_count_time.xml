@@ -5,7 +5,15 @@
 
     <select id="queryTopList" parameterType="com.star.model.btc.BtcAmountQuery"
             resultType="com.star.model.btc.BtcAmount">
-        select sum(coin_count) btcCount,create_time createTime from coin_count_time where coin_type=#{coinType} and data_type=#{dataType} group by create_time
+        select
+            sum(coin_count) btcCount,
+            create_time createTime,
+            DATE_FORMAT(create_time,'%Y') createYear,
+            DATE_FORMAT(create_time,'%m-%d') createMonthDay,
+            DATE_FORMAT(create_time,'%H:%i') createHourMinute
+        from coin_count_time
+        where coin_type=#{coinType} and data_type=#{dataType}
+        group by create_time
     </select>
 
     <select id="queryTopListV2" parameterType="com.star.model.btc.CoinCountTimeQuery"

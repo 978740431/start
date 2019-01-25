@@ -18,6 +18,9 @@ public class BtcAmount {
 	private Long btcCount;
 	/** btc_percent **/
 	private String btcPercent;
+	private String createYear;
+	private String createMonthDay;
+	private String createHourMinute;
 	/** create_time **/
 	private Date createTime;
 	/** ranking **/
@@ -172,5 +175,29 @@ public class BtcAmount {
 
 	public void setSevenBtcCount(Integer sevenBtcCount) {
 		this.sevenBtcCount = sevenBtcCount;
+	}
+
+	public String getCreateYear() {
+		return createYear;
+	}
+
+	public void setCreateYear(String createYear) {
+		this.createYear = createYear;
+	}
+
+	public String getCreateMonthDay() {
+		return createMonthDay;
+	}
+
+	public void setCreateMonthDay(String createMonthDay) {
+		this.createMonthDay = createMonthDay;
+	}
+
+	public String getCreateHourMinute() {
+		return createHourMinute;
+	}
+
+	public void setCreateHourMinute(String createHourMinute) {
+		this.createHourMinute = createHourMinute;
 	}
 }

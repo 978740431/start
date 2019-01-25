@@ -1,6 +1,7 @@
 package com.star.controller;
 
 import com.google.gson.Gson;
+import com.star.common.RedisService;
 import com.star.mapper.CoinCountTimeMapper;
 import com.star.mapper.EthAmountMapper;
 import com.star.model.btc.BtcAmount;
@@ -28,6 +29,9 @@ public class ETHAmountController {
 
     @Autowired
     private CoinCountTimeMapper coinCountTimeMapper;
+
+    @Resource
+    private RedisService redisService;
 
     /**
      * btc前500持仓列表
@@ -59,45 +63,71 @@ public class ETHAmountController {
         resultList.add(ethCount10List);
 
         //eth 前100
-        btcAmountQuery.setCoinType("eth");
-        btcAmountQuery.setDataType(9);
-        List<BtcAmount> ethAmount100List = coinCountTimeMapper.queryTopList(btcAmountQuery);
-        List<String> ethCreateTime100List = new ArrayList<String>();
-        List<Long> ethCount100List = new ArrayList<Long>();
-        for (BtcAmount btcAmount : ethAmount100List) {
-            ethCreateTime100List.add(format.format(btcAmount.getCreateTime()));
-            ethCount100List.add(btcAmount.getBtcCount());
-        }
-        resultList.add(ethCreateTime100List);
-        resultList.add(ethCount100List);
+        //btcAmountQuery.setCoinType("eth");
+        //btcAmountQuery.setDataType(9);
+        //List<BtcAmount> ethAmount100List = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        //List<String> ethCreateTime100List = new ArrayList<String>();
+        //List<Long> ethCount100List = new ArrayList<Long>();
+        //for (BtcAmount btcAmount : ethAmount100List) {
+        //    ethCreateTime100List.add(format.format(btcAmount.getCreateTime()));
+        //    ethCount100List.add(btcAmount.getBtcCount());
+        //}
+        //resultList.add(ethCreateTime100List);
+        //resultList.add(ethCount100List);
 
 
         //eth 前500
-        btcAmountQuery.setCoinType("eth");
-        btcAmountQuery.setDataType(1);
-        List<BtcAmount> ethAmountList = coinCountTimeMapper.queryTopList(btcAmountQuery);
-        List<String> ethCreateTimeList = new ArrayList<String>();
-        List<Long> ethCountList = new ArrayList<Long>();
-        for (BtcAmount btcAmount : ethAmountList) {
-            ethCreateTimeList.add(format.format(btcAmount.getCreateTime()));
-            ethCountList.add(btcAmount.getBtcCount());
-        }
-        resultList.add(ethCreateTimeList);
-        resultList.add(ethCountList);
+        //btcAmountQuery.setCoinType("eth");
+        //btcAmountQuery.setDataType(1);
+        //List<BtcAmount> ethAmountList = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        //List<String> ethCreateTimeList = new ArrayList<String>();
+        //List<Long> ethCountList = new ArrayList<Long>();
+        //for (BtcAmount btcAmount : ethAmountList) {
+        //    ethCreateTimeList.add(format.format(btcAmount.getCreateTime()));
+        //    ethCountList.add(btcAmount.getBtcCount());
+        //}
+        //resultList.add(ethCreateTimeList);
+        //resultList.add(ethCountList);
 
 
         //eth 前1500
-        btcAmountQuery.setCoinType("eth");
-        btcAmountQuery.setDataType(2);
-        List<BtcAmount> ethAmount1500List = coinCountTimeMapper.queryTopList(btcAmountQuery);
-        List<String> ethCreateTime1500List = new ArrayList<String>();
-        List<Long> ethCount1500List = new ArrayList<Long>();
-        for (BtcAmount btcAmount : ethAmount1500List) {
-            ethCreateTime1500List.add(format.format(btcAmount.getCreateTime()));
-            ethCount1500List.add(btcAmount.getBtcCount());
-        }
-        resultList.add(ethCreateTime1500List);
-        resultList.add(ethCount1500List);
+        //btcAmountQuery.setCoinType("eth");
+        //btcAmountQuery.setDataType(2);
+        //List<BtcAmount> ethAmount1500List = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        //List<String> ethCreateTime1500List = new ArrayList<String>();
+        //List<Long> ethCount1500List = new ArrayList<Long>();
+        //for (BtcAmount btcAmount : ethAmount1500List) {
+        //    ethCreateTime1500List.add(format.format(btcAmount.getCreateTime()));
+        //    ethCount1500List.add(btcAmount.getBtcCount());
+        //}
+        //resultList.add(ethCreateTime1500List);
+        //resultList.add(ethCount1500List);
+        //
+        ////eth 前2400
+        //btcAmountQuery.setCoinType("eth");
+        //btcAmountQuery.setDataType(8);
+        //List<BtcAmount> ethAmount2400List = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        //List<String> ethCreateTime2400List = new ArrayList<String>();
+        //List<Long> ethCount2400List = new ArrayList<Long>();
+        //for (BtcAmount btcAmount : ethAmount2400List) {
+        //    ethCreateTime2400List.add(format.format(btcAmount.getCreateTime()));
+        //    ethCount2400List.add(btcAmount.getBtcCount());
+        //}
+        //resultList.add(ethCreateTime2400List);
+        //resultList.add(ethCount2400List);
+
+        return new Gson().toJson(resultList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/eth_top_2400", method = RequestMethod.GET)
+    public String eth2400Top() {
+
+        //返回的list
+        List<Object> resultList = new ArrayList<Object>();
+
+        BtcAmountQuery btcAmountQuery = new BtcAmountQuery();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         //eth 前2400
         btcAmountQuery.setCoinType("eth");
@@ -115,6 +145,84 @@ public class ETHAmountController {
         return new Gson().toJson(resultList);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/eth_top_1500", method = RequestMethod.GET)
+    public String ethTop1500() {
+
+        //返回的list
+        List<Object> resultList = new ArrayList<Object>();
+
+        BtcAmountQuery btcAmountQuery = new BtcAmountQuery();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        //eth 前2400
+        btcAmountQuery.setCoinType("eth");
+        btcAmountQuery.setDataType(2);
+        List<BtcAmount> ethAmount1500List = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        List<String> ethCreateTime1500List = new ArrayList<String>();
+        List<Long> ethCount1500List = new ArrayList<Long>();
+        for (BtcAmount btcAmount : ethAmount1500List) {
+            ethCreateTime1500List.add(format.format(btcAmount.getCreateTime()));
+            ethCount1500List.add(btcAmount.getBtcCount());
+        }
+        resultList.add(ethCreateTime1500List);
+        resultList.add(ethCount1500List);
+
+        return new Gson().toJson(resultList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/eth_top_500", method = RequestMethod.GET)
+    public String ethTop500() {
+
+        //返回的list
+        List<Object> resultList = new ArrayList<Object>();
+
+        BtcAmountQuery btcAmountQuery = new BtcAmountQuery();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        //eth 前2400
+        btcAmountQuery.setCoinType("eth");
+        btcAmountQuery.setDataType(1);
+        List<BtcAmount> ethAmountList = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        List<String> ethCreateTimeList = new ArrayList<String>();
+        List<Long> ethCountList = new ArrayList<Long>();
+        for (BtcAmount btcAmount : ethAmountList) {
+            ethCreateTimeList.add(format.format(btcAmount.getCreateTime()));
+            ethCountList.add(btcAmount.getBtcCount());
+        }
+        resultList.add(ethCreateTimeList);
+        resultList.add(ethCountList);
+
+        return new Gson().toJson(resultList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/eth_top_100", method = RequestMethod.GET)
+    public String ethTop100() {
+
+        //返回的list
+        List<Object> resultList = new ArrayList<Object>();
+
+        BtcAmountQuery btcAmountQuery = new BtcAmountQuery();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        //eth 前2400
+        btcAmountQuery.setCoinType("eth");
+        btcAmountQuery.setDataType(9);
+        List<BtcAmount> ethAmount100List = coinCountTimeMapper.queryTopList(btcAmountQuery);
+        List<String> ethCreateTime100List = new ArrayList<String>();
+        List<Long> ethCount100List = new ArrayList<Long>();
+        for (BtcAmount btcAmount : ethAmount100List) {
+            ethCreateTime100List.add(format.format(btcAmount.getCreateTime()));
+            ethCount100List.add(btcAmount.getBtcCount());
+        }
+        resultList.add(ethCreateTime100List);
+        resultList.add(ethCount100List);
+
+        return new Gson().toJson(resultList);
+    }
+
 
     @Resource
     private EthAmountMapper ethAmountMapper;
@@ -123,6 +231,11 @@ public class ETHAmountController {
     @ResponseBody
     @RequestMapping(value = "/query_eth_address", method = RequestMethod.GET)
     public String queryEthAddress() {
+
+        String ethJiaoyisuo = redisService.get("eth_jiaoyisuo");
+        if (null != ethJiaoyisuo && !"".equals(ethJiaoyisuo)) {
+            return ethJiaoyisuo;
+        }
 
         List<Object> resultList = new ArrayList<Object>();
 
@@ -163,40 +276,48 @@ public class ETHAmountController {
         }
         resultList.add(createTimeList);
 
-        int index = 1;
-        for (int i = ethAmountList.size() - 1; i >= 0; i--) {
-            EthAmount ethAmount = ethAmountList.get(i);
-            countList.set(count - index, ethAmount.getEthCount());
-            index++;
+        for (EthAmount ethAmount : ethAmountList) {
+            int i1 = createTimeList.indexOf(ethAmount.getCreateTime());
+            if (i1 == -1) {
+                continue;
+            }
+            countList.set(i1, ethAmount.getEthCount());
         }
         resultList.add(countList);
 
-        index = 1;
-        for (int i = ethAmountBinanceList.size() - 1; i >= 0; i--) {
-            EthAmount ethAmount = ethAmountBinanceList.get(i);
-            countBinanceList.set(count - index, ethAmount.getEthCount());
-            index++;
+        for (EthAmount ethAmount : ethAmountBinanceList) {
+            int i1 = createTimeList.indexOf(ethAmount.getCreateTime());
+            if (i1 == -1) {
+                continue;
+            }
+            countBinanceList.set(i1, ethAmount.getEthCount());
         }
         resultList.add(countBinanceList);
 
-        index = 1;
-        for (int i = ethAmountKrakenList.size() - 1; i >= 0; i--) {
-            EthAmount ethAmount = ethAmountKrakenList.get(i);
-            countKrakenList.set(count - index, ethAmount.getEthCount());
-            index++;
+        for (EthAmount ethAmount : ethAmountKrakenList) {
+
+            int i1 = createTimeList.indexOf(ethAmount.getCreateTime());
+            if (i1 == -1) {
+                continue;
+            }
+            countKrakenList.set(i1, ethAmount.getEthCount());
         }
         resultList.add(countKrakenList);
 
-        index = 1;
-        for (int i = ethAmountHuobiList.size() - 1; i >= 0; i--) {
-            EthAmount ethAmount = ethAmountHuobiList.get(i);
-            countHuobiList.set(count - index, ethAmount.getEthCount());
-            index++;
+        for (EthAmount ethAmount : ethAmountHuobiList) {
+            int i1 = createTimeList.indexOf(ethAmount.getCreateTime());
+            if (i1 == -1) {
+                continue;
+            }
+            countHuobiList.set(i1, ethAmount.getEthCount());
         }
         resultList.add(countHuobiList);
 
 
         String ethAmount = new Gson().toJson(resultList);
+
+
+        redisService.set("eth_jiaoyisuo", ethAmount, 1800);
 
         return ethAmount;
 
