@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * Created by zhangnan on 16/7/27.
  */
-public class VisitRecordInterceptor extends HandlerInterceptorAdapter {
+public class VIsitRecordInterceptor extends HandlerInterceptorAdapter {
 
 
     @Autowired

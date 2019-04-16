@@ -51,8 +51,8 @@ public class HttpFilter extends OncePerRequestFilter {
 		/**
 		 * 将站点域名和static资源地址存入context
 		 **/
-		ActionUtil.addContextPath(request);
-		ActionUtil.addStaticPath(request);
+//		ActionUtil.addContextPath(request);
+//		ActionUtil.addStaticPath(request);
 
 		/**
 		 * 浏览器不支持put,delete等method,由该filter将/service?_method=delete转换为标准的http delete方法

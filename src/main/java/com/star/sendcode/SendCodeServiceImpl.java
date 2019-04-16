@@ -3,10 +3,6 @@ package com.star.sendcode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.star.dao.SendCodeDao;
 import com.star.model.SendSMS;
-import com.taobao.api.DefaultTaobaoClient;
-import com.taobao.api.TaobaoClient;
-import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
-import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,36 +37,36 @@ public class SendCodeServiceImpl implements SendCodeService{
 
         //整理参数，发送短信
         ObjectMapper mapper = new ObjectMapper();
-        TaobaoClient client = new DefaultTaobaoClient(url, appKey, secret);
-        AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
-        req.setSmsType("normal");
-        req.setSmsFreeSignName("白水");
-        req.setRecNum(mobile);
-        req.setSmsTemplateCode(smsTemp);
-        AlibabaAliqinFcSmsNumSendResponse rsp = null;
+//        TaobaoClient client = new DefaultTaobaoClient(url, appKey, secret);
+//        AlibabaAliqinFcSmsNumSendRequest req = new AlibabaAliqinFcSmsNumSendRequest();
+//        req.setSmsType("normal");
+//        req.setSmsFreeSignName("白水");
+//        req.setRecNum(mobile);
+//        req.setSmsTemplateCode(smsTemp);
+//        AlibabaAliqinFcSmsNumSendResponse rsp = null;
 
 
 
 
-        try {
-            String sendCode = mapper.writeValueAsString(code);
-            //保存到数据库发送的短信
-            SendSMS insertSMS=new SendSMS();
-            insertSMS.setIsUsed(0);
-            insertSMS.setMobile(mobile);
-            insertSMS.setSendCode(sendCode);
-            insertSMS.setSmsTemp(smsTemp);
-            sendCodeDao.insertSendSMS(insertSMS);
+//        try {
+//            String sendCode = mapper.writeValueAsString(code);
+//            //保存到数据库发送的短信
+//            SendSMS insertSMS=new SendSMS();
+//            insertSMS.setIsUsed(0);
+//            insertSMS.setMobile(mobile);
+//            insertSMS.setSendCode(sendCode);
+//            insertSMS.setSmsTemp(smsTemp);
+//            sendCodeDao.insertSendSMS(insertSMS);
+//
+//            req.setSmsParamString(sendCode);
+//            rsp = client.execute(req);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(rsp.getBody());
+//
 
-            req.setSmsParamString(sendCode);
-            rsp = client.execute(req);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(rsp.getBody());
-
-
-        return rsp.getBody();
+        return null;
     }
 
     @Override
