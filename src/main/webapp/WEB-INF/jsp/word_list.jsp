@@ -62,7 +62,7 @@
 <script src="//staticssl.healthcare-inc.com/js/dialog-plus-min.js?version=V1"></script>
 <%--百度站点推送--%>
 <script>
-    (function () {
+    /*(function () {
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
         if (curProtocol === 'https') {
@@ -73,7 +73,7 @@
         }
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(bp, s);
-    })();
+    })();*/
 
     function addWord() {
         $.ajax({

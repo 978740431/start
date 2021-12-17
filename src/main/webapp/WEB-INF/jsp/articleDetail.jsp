@@ -23,7 +23,7 @@
     </style>
 </head>
 <%--友盟统计--%>
-<script src="https://s95.cnzz.com/z_stat.php?id=1260990957&web_id=1260990957" language="JavaScript"></script>
+<%--<script src="https://s95.cnzz.com/z_stat.php?id=1260990957&web_id=1260990957" language="JavaScript"></script>--%>
 
 <body style="margin: 0">
 <%--防止另存为--%>
@@ -104,7 +104,7 @@
 </script>
 
 <%--百度站点推送--%>
-<script>
+<%--<script>
     (function(){
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
@@ -117,5 +117,5 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(bp, s);
     })();
-</script>
+</script>--%>
 </html>
